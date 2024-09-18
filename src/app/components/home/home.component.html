@@ -1,0 +1,109 @@
+<div class="container-main">
+  <div id="sobre" class="sobre">
+    <div class="sobre-mim efeito-txt">
+      <h1>Sobre mim</h1>
+      <p id="p" [innerHTML]="textoPadrao"></p>
+      <div class="fotos">
+        <img id="fts1" src="images/studio/sofa.jpg" />
+        <img id="fts2" src="images/studio/cadeira.jpg" />
+        <img id="fts3" src="images/studio/plantaespelho.jpg" />
+      </div>
+    </div>
+    <div class="sobre-img">
+      <img id="principalft" src="images/thai/thai.jpg"  class="efeito-img"/>
+    </div>
+  </div>
+  <div id="projetos" class="projetos">
+    <h1>Projetos</h1>
+    <div class="carrosel" id="carrosel">
+      <p-carousel
+        [value]="carrosel"
+        [numVisible]="3"
+        [numScroll]="3"
+        [showNavigators]="true"
+        [circular]="true"
+        [autoplayInterval]="5000"
+        [responsiveOptions]="opcoesResponsividade"
+        [orientation]="orientation"
+      >
+        <ng-template pTemplate="item" let-carrosel>
+          <div class="product-item">
+            <div class="product-item-content">
+              <div class="title-carrosel">
+                <h4>{{ carrosel.nome }}</h4>
+              </div>
+            </div>
+          </div>
+          <img [src]="carrosel.image" [alt]="'image'" />
+        </ng-template>
+      </p-carousel>
+    </div>
+  </div>
+
+  <div id="contato" class="contato">
+    <div class="informacao">
+      <h1 id="title">Venha fazer seu projeto</h1>
+        <div class="box box1">
+          <div class="passos">
+          <div class="ordem">
+            <h1 id="numero">1</h1>
+            <h1>CRIAÇÃO</h1>
+          </div>
+          </div>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit quas eius quos laboriosam beatae explicabo eum rem. Accusamus tempore sapiente dolore hic est ipsam incidunt ullam! Sit distinctio illo perferendis.</p>
+        </div>
+        <div class="box box2">
+          <div class="passos">
+            <div class="ordem">
+              <h1 id="numero">2</h1>
+              <h1>PROJETOS</h1>
+            </div>
+          </div>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit quas eius quos laboriosam beatae explicabo eum rem. Accusamus tempore sapiente dolore hic est ipsam incidunt ullam! Sit distinctio illo perferendis.</p>
+        </div>
+        <div class="box box3">
+          <div class="passos">
+            <div class="ordem">
+              <h1 id="numero">3</h1>
+              <h1>OBRA</h1>
+            </div>
+            </div>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit quas eius quos laboriosam beatae explicabo eum rem. Accusamus tempore sapiente dolore hic est ipsam incidunt ullam! Sit distinctio illo perferendis.</p>
+        </div>
+    </div>
+
+    <div id="fzrContato" class="fzrContato" >
+      <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+        <div class="menu" >
+          <h4>Quer um projeto da Thailine?</h4>
+          <article>
+            <label for="">Nome:</label>
+            <input type="text" placeholder="Nome Completo" formControlName="nome" pInputText /> 
+          </article>
+          <article>
+            <label for="">Email:</label>
+            <input type="email" placeholder="Email pessoal"formControlName="email" pInputText /> 
+          </article>
+          <article>
+            <label for="">Número/Whatsapp:</label>
+            <input type="number" placeholder="Seu Telefone/Whatsapp" formControlName="numero" pInputText /> 
+          </article>
+          <article>
+            <label for="">Cidade:</label>
+            <input type="text" placeholder="Informe a cidade/estado"formControlName="cidade" pInputText /> 
+          </article>
+          <article>
+            <label for="">Descrição:</label>
+            <textarea id="descricao"formControlName="descricao"placeholder="Breve descrição do projeto" rows="12"cols="30" pInputTextarea></textarea>          
+          </article>
+          <div class="botao">
+            <p-button label="Enviar" type="submit" [disabled]="formulario.invalid" />
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<p-toast position="top-right" key="tl"/>
