@@ -127,11 +127,11 @@ export class HomeComponent {
     this.messageService.add({ severity: 'info', summary:'info', detail: 'Enviando..' })
     if (this.formulario.valid) {
       this.homeService.enviarParaWhatsApp(this.formulario.value).subscribe(
-        (response: any) => {
+        (response) => {
           console.log('Dados enviados para o WhatsApp:', response);
           this.messageService.add({severity:'success', summary:'Sucesso', detail:'Seu projeto foi enviado!'});
         },
-        (error: HttpErrorResponse) => {
+        (error) => {
           this.messageService.add({severity:'error', summary:'Error', detail:'Preencha todos os campos do formulario'})
           console.error('Erro ao enviar dados para o WhatsApp:', error);
         }
@@ -142,7 +142,7 @@ export class HomeComponent {
   CSSfunc(scrollTop: number): void {
     const imgPrincipal = document.querySelector('.efeito-img') as HTMLElement;
     const txtPrincipal = document.querySelector('.efeito-txt') as HTMLElement;
-    let rotacao = Math.max(-scrollTop / 10, -360);
+    let rotacao = Math.max(-scrollTop / 20, -360);
     let opacidade = Math.max(1 - (scrollTop / 600), 0); 
     let slide = Math.min(scrollTop / 3, 500);
 
