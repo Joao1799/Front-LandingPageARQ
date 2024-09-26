@@ -65,12 +65,14 @@ export class HomeComponent {
     const item = this.carrosel.find((card: CarroselItem) => card.id === id);
     if(item){
       this.rfCard = this.dialogService.open(CardsInfoComponent, {
-        header: item.id,
-        width: '50%',
+        header:"Informações do Projeto",
+        width: '30%',
         modal:true,
-        contentStyle: { "max-height": "500px", "overflow": "auto" },
-        baseZIndex: 10000
-      })
+        closable: false,
+        contentStyle: { "height": "70vh", "overflow": "auto" },
+        baseZIndex: 10000,
+        data:item,
+      });
     }
   }
 
@@ -96,53 +98,70 @@ export class HomeComponent {
       },
     ]
     this.attPosicao();
+
     this.carrosel = [
       {
         image: 'images/123casa/123123.png',
         nome: 'Projeto 3D Ambiente integrado',
         id: 1,
+        descricao: 'Este projeto 3D de ambiente integrado combina sala de estar e cozinha em um espaço moderno e aberto. Foco no design contemporâneo, utilizando conceitos de iluminação e ergonomia.',
+        tecnologias: ['SketchUp', 'V-Ray', 'AutoCAD'],
       },
       {
         image: 'images/123casa/123.png',
         nome: 'Projeto 3D de Cozinha',
         id: 2,
+        descricao: 'Um projeto de cozinha detalhado em 3D, projetado com foco em funcionalidade e estilo minimalista. Ideal para quem busca otimização de espaço e soluções modernas.',
+        tecnologias: ['AutoCAD', '3ds Max', 'Lumion'],
       },
       {
         image: 'images/123casa/312.png',
         nome: 'Projeto 3D de Banheiro',
         id: 3,
+        descricao: 'Projeto de banheiro em 3D, com foco em materiais como mármore e porcelanato, proporcionando um ambiente sofisticado e funcional. Design contemporâneo e clean.',
+        tecnologias: ['Revit', 'Enscape', 'SketchUp'],
       },
-
       {
         image: 'images/parque2/verde2.png',
         nome: 'Projeto 3D de Parque',
         id: 4,
+        descricao: 'Desenvolvimento de parque em 3D com áreas verdes amplas, trilhas para caminhada e zonas de recreação. O projeto valoriza o paisagismo e o uso sustentável de recursos.',
+        tecnologias: ['Lumion', 'AutoCAD', 'Revit'],
       },
       {
         image: 'images/parque2/verde1.png',
         nome: 'Projeto 3D de Parque',
         id: 5,
+        descricao: 'Projeto de parque com foco em integração com a natureza, utilizando técnicas de paisagismo avançadas para criar um espaço convidativo e sustentável.',
+        tecnologias: ['SketchUp', 'AutoCAD', 'V-Ray'],
       },
       {
         image: 'images/parque2/verde3.png',
         nome: 'Projeto 3D de Parque',
         id: 6,
+        descricao: 'Este parque foi projetado em 3D para oferecer áreas de lazer e convivência, priorizando sustentabilidade e acessibilidade em um ambiente natural.',
+        tecnologias: ['3ds Max', 'Revit', 'Lumion'],
       },
-
       {
         image: 'images/casa/irmao1.png',
         nome: 'Projeto 3D de casa',
         id: 7,
+        descricao: 'Projeto de uma casa unifamiliar em 3D com estilo arquitetônico moderno. Foco em maximizar iluminação natural e ventilação cruzada, garantindo eficiência energética.',
+        tecnologias: ['Revit', 'AutoCAD', 'Enscape'],
       },
       {
         image: 'images/casa/irmao2.png',
         nome: 'Projeto 3D de casa',
         id: 8,
+        descricao: 'Modelo 3D de uma residência com design contemporâneo e linhas limpas. O projeto foca no uso de materiais sustentáveis e aproveitamento inteligente do espaço.',
+        tecnologias: ['SketchUp', 'V-Ray', 'AutoCAD'],
       },
       {
         image: 'images/casa/irmao3.png',
         nome: 'Projeto 3D de casa',
         id: 9,
+        descricao: 'Residência projetada em 3D com elementos arquitetônicos sofisticados, como grandes janelas e ambientes integrados, visando um estilo de vida moderno e funcional.',
+        tecnologias: ['Lumion', 'Revit', 'AutoCAD'],
       },
     ];
 

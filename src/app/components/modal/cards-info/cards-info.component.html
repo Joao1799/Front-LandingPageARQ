@@ -1,1 +1,29 @@
-<p>cards-info works!</p>
+<section class="main-container">
+	<header>
+		<img [src]="dadosCard.image" alt="{{ dadosCard.nome }}">
+	</header>
+	<body>
+		<article>
+			<h1>
+				{{dadosCard.nome}}
+			</h1>
+			<p-rating [cancel]="false" />
+		</article>
+		<p>{{dadosCard.descricao}}</p>		
+
+		<article class="tec">
+			<h2>
+				Softares Utilizados:
+			</h2>
+			<article class="main-tecnologia">
+				<label *ngFor="let tecnologia of dadosCard.tecnologias" class="tecnologia-label">
+					{{ tecnologia }}
+				</label>
+			</article>
+		</article>
+	</body>
+
+	<footer>
+		<p-button label="Fechar" [raised]="true" severity="info" (onClick)="fecharCard()" />
+	</footer>
+</section>

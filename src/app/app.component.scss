@@ -1,0 +1,15 @@
+::ng-deep{
+	.p-dialog-header{
+		display: flex;
+		justify-content: center;
+	}
+	.p-dialog .p-dialog-header {
+		padding-top: 10px;
+	}
+	.p-dialog .p-dialog-header .p-dialog-title {
+		font-family: Caleada;
+		color: #66573e;
+		font-weight: normal;		
+		font-size:1.5rem;
+	}
+}
