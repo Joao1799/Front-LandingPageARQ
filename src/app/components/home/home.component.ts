@@ -2,21 +2,30 @@ import { Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { homeService } from './home.service';
-import { HttpErrorResponse } from '@angular/common/http';
+import { InputMaskModule } from 'primeng/inputmask';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { CardsInfoComponent } from '../modal/cards-info/cards-info.component';
+
+interface CarroselItem {
+  image: string;
+  nome: string;
+  id: number;
+}
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CarouselModule,CommonModule, ButtonModule,ReactiveFormsModule,InputTextModule,InputTextareaModule,ToastModule],
+  imports: [CarouselModule,CommonModule, ButtonModule,ReactiveFormsModule,InputTextModule,InputTextareaModule,ToastModule,InputMaskModule,DynamicDialogModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
-  providers: [MessageService, homeService]
+  providers: [MessageService, homeService,DialogService]
 })
 export class HomeComponent {
   carrosel: any;
@@ -26,8 +35,9 @@ export class HomeComponent {
   lastScrollTop: any;
   opcoesResponsividade: any;
   orientation: any = 'vertical';
+  rfCard: DynamicDialogRef | undefined;
 
-  constructor( private homeService: homeService, private fb: FormBuilder,private messageService: MessageService) { }
+  constructor( private homeService: homeService, private fb: FormBuilder,private messageService: MessageService,public dialogService: DialogService) { }
 
   ngOnInit() {
     this.getForms();
@@ -38,10 +48,30 @@ export class HomeComponent {
     this.formulario =new FormGroup({
       nome: new FormControl('', [Validators.required]), 
       email: new FormControl('', [Validators.email]), 
-      numero: new FormControl('', [Validators.required,Validators.pattern('^[- +()0-9]+$')]), 
+      numero: new FormControl('', [Validators.required, this.formatadorNumero()]), 
       cidade: new FormControl('', [Validators.required]), 
       descricao: new FormControl('',[Validators.required] ), 
     }) 
+  }
+  formatadorNumero(): ValidatorFn {
+    const formataNumero = /^\(\d{2}\)\s\d{9}$/;
+    return (control: AbstractControl): ValidationErrors | null => {
+      const valid = formataNumero.test(control.value);
+      return valid ? null : { numeroInvalido: true };
+    };
+  }
+
+  openCardInfo(id: any){
+    const item = this.carrosel.find((card: CarroselItem) => card.id === id);
+    if(item){
+      this.rfCard = this.dialogService.open(CardsInfoComponent, {
+        header: item.id,
+        width: '50%',
+        modal:true,
+        contentStyle: { "max-height": "500px", "overflow": "auto" },
+        baseZIndex: 10000
+      })
+    }
   }
 
   txtPadrao(){
@@ -70,40 +100,49 @@ export class HomeComponent {
       {
         image: 'images/123casa/123123.png',
         nome: 'Projeto 3D Ambiente integrado',
+        id: 1,
       },
       {
         image: 'images/123casa/123.png',
         nome: 'Projeto 3D de Cozinha',
+        id: 2,
       },
       {
         image: 'images/123casa/312.png',
         nome: 'Projeto 3D de Banheiro',
+        id: 3,
       },
 
       {
         image: 'images/parque2/verde2.png',
         nome: 'Projeto 3D de Parque',
+        id: 4,
       },
       {
         image: 'images/parque2/verde1.png',
         nome: 'Projeto 3D de Parque',
+        id: 5,
       },
       {
         image: 'images/parque2/verde3.png',
         nome: 'Projeto 3D de Parque',
+        id: 6,
       },
 
       {
         image: 'images/casa/irmao1.png',
         nome: 'Projeto 3D de casa',
+        id: 7,
       },
       {
         image: 'images/casa/irmao2.png',
         nome: 'Projeto 3D de casa',
+        id: 8,
       },
       {
         image: 'images/casa/irmao3.png',
         nome: 'Projeto 3D de casa',
+        id: 9,
       },
     ];
 
@@ -124,18 +163,19 @@ export class HomeComponent {
   }
 
   onSubmit() {
-    this.messageService.add({ severity: 'info', summary:'info', detail: 'Enviando..' })
+    this.messageService.add({ severity: 'info', summary: 'info', detail: 'Enviando..' });
     if (this.formulario.valid) {
-      this.homeService.enviarParaWhatsApp(this.formulario.value).subscribe(
-        (response) => {
+      this.homeService.enviarParaWhatsApp(this.formulario.value).subscribe({
+        next: (response) => {
           console.log('Dados enviados para o WhatsApp:', response);
-          this.messageService.add({severity:'success', summary:'Sucesso', detail:'Seu projeto foi enviado!'});
+          this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Seu projeto foi enviado!' });
+          window.location.reload()
         },
-        (error) => {
-          this.messageService.add({severity:'error', summary:'Error', detail:'Preencha todos os campos do formulario'})
+        error: (error) => {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Preencha todos os campos do formulário' });
           console.error('Erro ao enviar dados para o WhatsApp:', error);
         }
-      );
+      });
     }
   }
 

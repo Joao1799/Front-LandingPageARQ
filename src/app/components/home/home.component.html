@@ -27,14 +27,14 @@
         [orientation]="orientation"
       >
         <ng-template pTemplate="item" let-carrosel>
-          <div class="product-item">
+          <div class="product-item" >
             <div class="product-item-content">
               <div class="title-carrosel">
                 <h4>{{ carrosel.nome }}</h4>
               </div>
             </div>
           </div>
-          <img [src]="carrosel.image" [alt]="'image'" />
+          <img [src]="carrosel.image" [alt]="'image'" (click)="openCardInfo(carrosel.id)" />
         </ng-template>
       </p-carousel>
     </div>
@@ -86,7 +86,7 @@
           </article>
           <article>
             <label for="">Número/Whatsapp:</label>
-            <input type="number" placeholder="Seu Telefone/Whatsapp" formControlName="numero" pInputText /> 
+            <p-inputMask mask="(99) 999999999" placeholder="Seu Telefone/Whatsapp" formControlName="numero"/> 
           </article>
           <article>
             <label for="">Cidade:</label>
@@ -106,4 +106,4 @@
 </div>
 
 
-<p-toast position="top-right" key="tl"/>
+<p-toast position="top-right" [baseZIndex]="5000"/>
