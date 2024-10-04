@@ -36,6 +36,7 @@ export class HomeComponent {
   opcoesResponsividade: any;
   orientation: any = 'vertical';
   rfCard: DynamicDialogRef | undefined;
+  widthCard: any;
 
   constructor( private homeService: homeService, private fb: FormBuilder,private messageService: MessageService,public dialogService: DialogService) { }
 
@@ -63,10 +64,17 @@ export class HomeComponent {
 
   openCardInfo(id: any){
     const item = this.carrosel.find((card: CarroselItem) => card.id === id);
+    
+    if (window.innerWidth <= 932) {
+      this.widthCard = '70%';
+    } else {
+      this.widthCard = '30%';
+    }
+   
     if(item){
       this.rfCard = this.dialogService.open(CardsInfoComponent, {
         header:"Informações do Projeto",
-        width: '30%',
+        width: this.widthCard,
         modal:true,
         closable: false,
         contentStyle: { "height": "70vh", "overflow": "auto" },
@@ -191,7 +199,7 @@ export class HomeComponent {
           window.location.reload()
         },
         error: (error) => {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Preencha todos os campos do formulário' });
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Erro ao enviar projeto' });
           console.error('Erro ao enviar dados para o WhatsApp:', error);
         }
       });

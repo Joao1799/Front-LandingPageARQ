@@ -1,8 +1,8 @@
 .main-container{
 	height: 100%;
 	overflow-y: hidden;
+	padding: 5px;
 
-	
 	::ng-deep {
 		  .p-rating .p-rating-item.p-focus {
 			display: none;
@@ -17,6 +17,8 @@ header{
 		max-height: 300px;
 		object-fit: cover;
 		border-radius: 10px;
+		box-shadow: 0px 1px 5px 0px #3232317b;
+
 	}
 }
 
@@ -76,7 +78,7 @@ body{
 }
 
 footer{
-	height: 100%;
+	height: 10vh;
 	max-height: 120px;
 	display: flex;
 	justify-content: flex-end;
@@ -86,6 +88,20 @@ footer{
 	::ng-deep {
 		.p-button{
 			padding: 10px 10px;
+		}
+	}
+}
+}
+
+@media (max-width: 980px) {
+.main-container{
+	body{
+		.tec{
+			.main-tecnologia{
+				flex-direction: column;
+				flex-wrap: nowrap;
+				align-items: flex-start;
+			}
 		}
 	}
 }
