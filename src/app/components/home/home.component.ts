@@ -209,6 +209,7 @@ export class HomeComponent {
   CSSfunc(scrollTop: number): void {
     const imgPrincipal = document.querySelector('.efeito-img') as HTMLElement;
     const txtPrincipal = document.querySelector('.efeito-txt') as HTMLElement;
+    const ripado = document.querySelector('.ripado') as HTMLElement;
     let rotacao = Math.max(-scrollTop / 20, -360);
     let opacidade = Math.max(1 - (scrollTop / 600), 0); 
     let slide = Math.min(scrollTop / 3, 500);
@@ -216,8 +217,12 @@ export class HomeComponent {
     imgPrincipal.style.transform = `rotate(${rotacao}deg)`;
     imgPrincipal.style.opacity = `${opacidade}`;
 
+    ripado.style.opacity = `${opacidade}`;
+
     txtPrincipal.style.transform = `translateX(-${slide}px)`;
     txtPrincipal.style.opacity = `${opacidade}`; 
+
+
   }
 
   @HostListener('window:scroll', [])
