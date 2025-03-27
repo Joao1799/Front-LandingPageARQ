@@ -37,25 +37,7 @@ Este projeto é uma landing page desenvolvida para uma arquiteta, utilizando Ang
    ```
    http://localhost:4200
    ```
-
-## 📂 Estrutura do Projeto
-
-```
-📁 arquitetura-landing/
-├── 📂 src/
-│   ├── 📂 app/                 # Módulos e componentes
-│   │   ├── 🏠 home/            # Página inicial
-│   │   ├── 👩‍🎨 sobre-mim/     # Seção sobre a arquiteta
-│   │   ├── 🏗 projetos/        # Exibição dos projetos
-│   │   ├── 📩 contato/         # Formulário de contato
-│   │   ├── 🛠 shared/          # Componentes reutilizáveis
-│   ├── 📂 assets/              # Imagens e arquivos estáticos
-│   ├── 📄 main.ts              # Arquivo principal
-│   ├── 📄 styles.scss          # Estilos globais
-├── 📄 angular.json             # Configuração do Angular
-├── 📄 package.json             # Dependências e scripts
-```
-
+   
 ## ✅ Funcionalidades
 
 - 📌 **Menu de navegação fixo para facilitar a usabilidade**
