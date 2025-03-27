@@ -15,7 +15,7 @@ Este projeto é uma landing page desenvolvida para uma arquiteta, utilizando Ang
 
 1. Clone este repositório:
    ```bash
-   git clone https://github.com/seu-usuario/arquitetura-landing.git
+   git clone https://github.com/Joao1799/Front-LandingPageARQ.git
    ```
 
 2. Acesse a pasta do projeto:
