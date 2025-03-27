@@ -1,27 +1,70 @@
-# ProjetoPortifolio
+# 🏛️ Arquitetura - Landing Page
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.4.
+## 📌 Descrição
 
-## Development server
+Este projeto é uma landing page desenvolvida para uma arquiteta, utilizando Angular e PrimeNG, para apresentar seus projetos e facilitar o contato com potenciais clientes. A aplicação conta com um menu de navegação, uma seção "Sobre Mim", uma área para exibição de projetos e um formulário de contato integrado com uma API de WhatsApp desenvolvida em Node.js e Express.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## 🚀 Tecnologias Utilizadas
 
-## Code scaffolding
+- 🌐 **Angular** - Framework para desenvolvimento frontend.
+- 🎨 **PrimeNG** - Biblioteca de componentes UI.
+- 🔄 **RxJS** - Manipulação reativa de dados.
+- 💬 **API WhatsApp (Node.js/Express)** - Integração para envio de mensagens via WhatsApp.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## 📥 Instalação
 
-## Build
+1. Clone este repositório:
+   ```bash
+   git clone https://github.com/seu-usuario/arquitetura-landing.git
+   ```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+2. Acesse a pasta do projeto:
+   ```bash
+   cd arquitetura-landing
+   ```
 
-## Running unit tests
+3. Instale as dependências:
+   ```bash
+   npm install
+   ```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+4. Inicie o servidor Angular:
+   ```bash
+   ng serve
+   ```
 
-## Running end-to-end tests
+5. Acesse a aplicação no navegador:
+   ```
+   http://localhost:4200
+   ```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## 📂 Estrutura do Projeto
 
-## Further help
+```
+📁 arquitetura-landing/
+├── 📂 src/
+│   ├── 📂 app/                 # Módulos e componentes
+│   │   ├── 🏠 home/            # Página inicial
+│   │   ├── 👩‍🎨 sobre-mim/     # Seção sobre a arquiteta
+│   │   ├── 🏗 projetos/        # Exibição dos projetos
+│   │   ├── 📩 contato/         # Formulário de contato
+│   │   ├── 🛠 shared/          # Componentes reutilizáveis
+│   ├── 📂 assets/              # Imagens e arquivos estáticos
+│   ├── 📄 main.ts              # Arquivo principal
+│   ├── 📄 styles.scss          # Estilos globais
+├── 📄 angular.json             # Configuração do Angular
+├── 📄 package.json             # Dependências e scripts
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## ✅ Funcionalidades
+
+- 📌 **Menu de navegação fixo para facilitar a usabilidade**
+- 👩‍🎨 **Seção "Sobre Mim" para apresentar a arquiteta**
+- 🏗 **Exibição de projetos com imagens e descrição**
+- 📩 **Formulário de contato integrado com API do WhatsApp**
+- 🎨 **Interface responsiva e moderna**
+
+## 📜 Licença
+
+Este projeto está licenciado sob a **MIT License**.
+
