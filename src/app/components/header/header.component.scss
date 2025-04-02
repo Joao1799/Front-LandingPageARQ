@@ -1,27 +1,33 @@
 .body {
   height: 9vh;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(255, 255, 255, 0.016);
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: 1rem;
 }
 nav {
   display: flex;
   align-items: center;
-  width: 70%;
-  justify-content: space-between;
+  width: 50%;
+  height: 80%;
+  justify-content: space-around;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+  background-color: rgb(255, 255, 255);
+  padding: 8px;
+  border-radius: 12px;
 }
 
 .navbar-logo {
-  width: 10rem;
+  width: 8rem;
   height: auto;
   vertical-align: middle;
 }
 
-#sobretexto {
-  color: #bfac8e;
-}
+// #sobretexto {
+//   color: #bfac8e;
+// }
 
 ul {
   list-style: none;
@@ -34,14 +40,13 @@ ul li {
 
 ul li a {
   display: block;
-  color: black;
   text-decoration: none;
-  letter-spacing: 2px;
-  font-weight: 500;
-  font-size: 1.5rem;
-  transition: 0.4s;
-  position: relative;
-  padding: 5px 10px;
+  font-size: 15px;
+  transition: 0.5s;
+  padding: 4px 8px;
+  color: #333;
+  text-transform: uppercase;
+  font-weight: 600;
 }
 
 ul:hover li a {

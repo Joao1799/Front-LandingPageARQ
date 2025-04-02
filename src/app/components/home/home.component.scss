@@ -1,123 +1,101 @@
 .container-main {
   background-color: #bfac8e46;
-  height: 100%;
-  overflow-y: hidden;
+  height: 100vh;
   overflow-x: hidden;
+  overflow-y: auto;
 }
+
 
 .sobre {
   display: flex;
   flex-direction: row;
-  background: linear-gradient(to bottom left, #D9CEBC 0%, #EFEAE2 100%);
-  justify-content: space-evenly;
-  align-items: flex-start;
+  background-image: url("/images/background/salaback.jpg");
+  background-size: cover; /* Faz a imagem cobrir toda a área sem distorcer */
+  background-position: center; /* Centraliza a imagem */
+  background-repeat: no-repeat; /* Evita repetição */
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   height: 100vh;
+  width: 100%;
   position: relative;
   z-index: 1;
 
-  .background-first{
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-    z-index:0;
-    display: flex;
-    justify-content: right;
-    align-items: end;
-    
-    .ripado{
-      width: 42%;
-      height: 100%;
-      object-position: right;
-      object-fit: cover;
-      opacity: 1;
-      overflow: hidden;
-      box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.747);      
-      filter: brightness(85%) saturate(130%);
-      border-radius: 40% 0% 0% 40% / 100% 0% 0% 100%;  
-     }
-  }
-
-  .sobre-mim {
+  header{
     display: flex;
     flex-direction: column;
-    gap: 14px;
-    height: 100%;
-    justify-content: center;
-    width: 50%;
-    padding: 0 20px 20px 20px;
-    z-index: 1;
+    align-items: center;
+    h2{
+      color: white;
+      font-weight: 400;
+      font-size: 2rem;
+      font-style: italic;
+      letter-spacing: 1px; 
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.16);
+    }
+    h1{
+      color: white;
+      font-weight: 400;
+      font-size: 10rem;
+      letter-spacing: 1px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.36);
+    }
+  }
+ 
+
+    .arrow {
+      position: absolute;
+      bottom: 5px;
+      transform: translate(-50%, -50%);
+      transform: rotate(360deg);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+  
+  .arrow span {
+      display: block;
+      width: 4.5vw;
+      height: 4.5vw;
+      border-bottom: 10px solid white;
+      border-right: 10px solid white;
+      transform: rotate(90deg);
+      animation: animate 2s infinite;
+      border-radius: 0px 8px 0px 8px;
   }
 
-  .sobre-mim h1 {
-    color: #bfac8e;
-    font-size: 2.1rem;
-    letter-spacing: 1px;
+  .arrow span:nth-child(1) {
+    animation-delay: -0.6s;
+    width: 6.5vw;
+    height: 6.5vw;
+}
+  
+  .arrow span:nth-child(2) {
+      animation-delay: -0.4s;
+      width: 4.5vw;
+      height: 4.5vw;
   }
-
-  .sobre-mim p {
-    color: rgb(102, 87, 62);
-    font-size: 1.3rem;
-    text-align: justify;
-    font-family: "Caladea";
-    font-weight: 400;
-    padding-bottom: 20px;
+  
+  .arrow span:nth-child(3) {
+      animation-delay: -0.2s;
+      width: 3.5vw;
+      height: 3.5vw; 
   }
-
-  .efeito-txt {
-    transition: transform 0.1ms ease-in-out, opacity 0.1ms ease-in-out;
-    transform-origin: left;
-    opacity: 1;
-  }
-
-  .sobre-img {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 10px;
-    height: 100%;
-    z-index: 1;
-  }
-
-  .efeito-img {
-    transition: transform 0.1ms ease-in-out, opacity 0.1ms ease-in-out;
-    overflow: hidden;
-    transform-origin: top;
-    opacity: 1;
-  }
-
-  #fts1,
-  #fts2,
-  #fts3 {
-    width: 220px;
-    height: 220px;
-    border: 4px solid #95733c46;
-    box-shadow: 0 0 15px #bfac8e;
-  }
-
-  #fts1 {
-    border-radius: 44% 42% 24% 100% / 92% 100% 60% 64%;
-  }
-
-  #fts2 {
-    border-radius: 44% 40% 65% 33% / 35% 100% 27% 15%;
-  }
-  #fts3 {
-    border-radius: 70% 80% 16% 100% / 0% 69% 78% 55%;
-  }
-
-  .fotos {
-    display: flex;
-    justify-content: space-around;
-  }
-
-  .sobre-img #principalft {
-    border-radius: 0px 100px 100px 100px / 100px 100px 100px 100px;
-    width: 550px;
-    height: 550px;
-    border: 4px solid #ffffff;
-    box-shadow: 0 0 15px #bfac8e;
+  
+  @keyframes animate {
+      0% {
+          opacity: 1;
+          transform: rotate(45deg) translate(-20px, -20px);
+      }
+      50% {
+          opacity: 0.75;
+      }
+      100% {
+          opacity: 0;
+          transform: rotate(45deg) translate(20px, 20px);
+      }
   }
 }
 
