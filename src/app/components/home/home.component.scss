@@ -6,17 +6,25 @@
 
 
 .home {
-  display: flex;
-  flex-direction: row;
-  background-image: url("/images/background/salaback.jpg");
-  background-size: cover; /* Faz a imagem cobrir toda a área sem distorcer */
-  background-position: center; /* Centraliza a imagem */
-  background-repeat: no-repeat; /* Evita repetição */
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
   height: 100vh;
   width: 100%;
+  padding: 16px ;
+
+  body{
+    display: flex;
+    flex-direction: row;
+    background-image: url("/images/background/salaback.jpg");
+    background-size: cover; /* Faz a imagem cobrir toda a área sem distorcer */
+    background-position: center; /* Centraliza a imagem */
+    background-repeat: no-repeat; /* Evita repetição */
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    border-radius: 24px;
+    box-shadow: -1px 2px 10px 1px rgba(116, 116, 116, 0.815);
+  }
 
   header{
     display: flex;
@@ -40,60 +48,60 @@
   }
  
 
-    .arrow {
-      position: absolute;
-      bottom: 5px;
-      transform: translate(-50%, -50%);
-      transform: rotate(360deg);
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-    }
+//     .arrow {
+//       position: absolute;
+//       bottom: 5px;
+//       transform: translate(-50%, -50%);
+//       transform: rotate(360deg);
+//       cursor: pointer;
+//       display: flex;
+//       flex-direction: column;
+//       align-items: center;
+//       width: 100%;
+//     }
   
-  .arrow span {
-      display: block;
-      width: 4.5vw;
-      height: 4.5vw;
-      border-bottom: 10px solid white;
-      border-right: 10px solid white;
-      transform: rotate(90deg);
-      animation: animate 2s infinite;
-      border-radius: 0px 8px 0px 8px;
-  }
+//   .arrow span {
+//       display: block;
+//       width: 4.5vw;
+//       height: 4.5vw;
+//       border-bottom: 10px solid white;
+//       border-right: 10px solid white;
+//       transform: rotate(90deg);
+//       animation: animate 2s infinite;
+//       border-radius: 0px 8px 0px 8px;
+//   }
 
-  .arrow span:nth-child(1) {
-    animation-delay: -0.6s;
-    width: 6.5vw;
-    height: 6.5vw;
-}
+//   .arrow span:nth-child(1) {
+//     animation-delay: -0.6s;
+//     width: 6.5vw;
+//     height: 6.5vw;
+// }
   
-  .arrow span:nth-child(2) {
-      animation-delay: -0.4s;
-      width: 4.5vw;
-      height: 4.5vw;
-  }
+//   .arrow span:nth-child(2) {
+//       animation-delay: -0.4s;
+//       width: 4.5vw;
+//       height: 4.5vw;
+//   }
   
-  .arrow span:nth-child(3) {
-      animation-delay: -0.2s;
-      width: 3.5vw;
-      height: 3.5vw; 
-  }
+//   .arrow span:nth-child(3) {
+//       animation-delay: -0.2s;
+//       width: 3.5vw;
+//       height: 3.5vw; 
+//   }
   
-  @keyframes animate {
-      0% {
-          opacity: 1;
-          transform: rotate(45deg) translate(-20px, -20px);
-      }
-      50% {
-          opacity: 0.75;
-      }
-      100% {
-          opacity: 0;
-          transform: rotate(45deg) translate(20px, 20px);
-      }
-  }
+//   @keyframes animate {
+//       0% {
+//           opacity: 1;
+//           transform: rotate(45deg) translate(-20px, -20px);
+//       }
+//       50% {
+//           opacity: 0.75;
+//       }
+//       100% {
+//           opacity: 0;
+//           transform: rotate(45deg) translate(20px, 20px);
+//       }
+//   }
 }
 
 .sobre{
@@ -121,7 +129,10 @@
         display: flex;
         justify-content: center;
         flex-direction: column;
-
+        // background-color: #EDE8E0;
+        padding: 0px 24px;
+        border-radius: 12px;
+        // box-shadow: 2px 2px 4px 1px rgba(116, 116, 116, 0.274);
         p{
           color: #525252;
           font-weight: 400;
@@ -135,7 +146,7 @@
           font-weight: 400;
           font-size: 6rem;
           letter-spacing: 0px;
-          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.36);
+          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
         }
       }
 
@@ -191,7 +202,7 @@
             min-height: 320px;
             background: #ffffff;
             border-radius: 15px;
-            box-shadow: 2px 2px 4px 1px rgba(116, 116, 116, 0.274);
+            border-radius: 24px;
             transition: transform 0.4s ease-in-out;
         }
         
