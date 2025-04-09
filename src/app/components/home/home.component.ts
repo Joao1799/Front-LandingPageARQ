@@ -80,9 +80,10 @@ export class HomeComponent {
   @ViewChild('headerHome', {static: true}) headerHome!: ElementRef;
 
   ngAfterViewInit(): void {
-    gsap.from(this.bodyhome.nativeElement, {
-      opacity: 0,
+    gsap.to(this.bodyhome.nativeElement, {
+      opacity: 1,
       duration: 2,
+      backgroundColor:'white',
       ease: 'power2.out'
     });
 
@@ -95,8 +96,7 @@ export class HomeComponent {
       },
       y: 300,
       opacity: 0,
-      duration: 2,
-      ease: 'power2.out'
+      duration: 1.5,
     });
   }
 }
