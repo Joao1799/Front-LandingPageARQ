@@ -36,7 +36,8 @@
               "src/styles.scss",
               "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
               "node_modules/aos/dist/aos.css",
-              "node_modules/primeng/resources/primeng.min.css"
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/@flaticon/flaticon-uicons/css/all/all.css"
             ],
             "scripts": [
             ]
@@ -99,7 +100,8 @@
               "src/styles.scss",
               "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
               "node_modules/aos/dist/aos.css",
-              "node_modules/primeng/resources/primeng.min.css"
+              "node_modules/primeng/resources/primeng.min.css",
+              "node_modules/@flaticon/flaticon-uicons/css/all/all.css"
             ],
             "scripts": [
             ]

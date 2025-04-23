@@ -579,6 +579,21 @@
   }
 }
 
+.banner{
+  background-color: #bfac8e1f;
+  width: 100%;
+  height: 15vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  header{
+    font-size: 1.4rem;
+    h1{
+      font-weight: 400;
+    }
+  }
+}
+
 .contato{
   height: 80vh;
   position: relative;
@@ -608,19 +623,38 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    .boxImg {
+    .box-img {
       width: 50%;
       height: 100%;
       display: flex;
       justify-content: center;
-      .ftthai{
-        width: 60%;
+
+      .space{
+        display: flex;
+        align-items: center;
+        width: 100%;
+        position: relative;
         height: 100%;
-        background-image: url("/images/background/blobthai1.png");
-        background-position: center;
-        background-size: cover;
-        background-repeat: no-repeat;
+        border-radius: 12px 0px 0px 12px;
+
+        svg {
+          filter: 
+          drop-shadow(3px 6px 5px rgba(0, 0, 0, 0.199))
+          drop-shadow(3px 12px 8px rgba(0, 0, 0, 0.199))
+          drop-shadow(3px 24px 10px rgba(0, 0, 0, 0.199));
+          
+        }
+
+        #clip-shape1{
+          position: relative;
+          z-index: 1;
+        }
+        #clip-shape2{
+          position: relative;
+          z-index: 0;
+        }
       }
+
     }
   
     .boxTXT {
@@ -651,10 +685,13 @@
         justify-content: space-around;
 
         header{
-          font-size: 1.2rem;
+          font-size: 1.4rem;
           color: black;
           display: flex;
-          justify-content: center
+          justify-content: center;
+          h1{
+            font-weight: 400;
+          }
         }
 
         body{
@@ -664,13 +701,28 @@
           article{
             display: flex;
             flex-direction: column;
+            gap: 4px;
+            padding: 4px;
 
             input{
               border: none;
-              border-radius: 2px;
+              border-radius: 4px;
               padding: 0.735rem;
-              background-color: #525252;
-              color: white;
+              font-size: 14px;
+              background-color: #dfdfdf;
+              color: rgb(0, 0, 0);
+              transition: 0.2s;
+            }
+
+            input:focus {
+              outline: none;
+              border: none;
+              box-shadow: 0 0 0 2px rgba(42, 42, 43, 0.25); /* opcional, para efeito */
+            }
+
+            input::placeholder {
+              color: #888; /* Cor do texto */
+              font-style: italic; /* Estilo de fonte, opcional */
             }
           }
         }
@@ -685,6 +737,11 @@
             background-color: #525252;
             color: white;
             font-size: 1rem;
+            transition: .2s;
+          }
+
+          button:hover{
+            transform: scale(1.1);
           }
         }
       }
@@ -694,9 +751,56 @@
 }
 
 .footer{
-  height: 20vh;
+  height: 35vh;
   // background-color: blue;
-  background-color: #A1866F; 
-  position: relative;
-  z-index: 2;
+  background-color: #eee9e11f; 
+
+  section.thereed-section{
+    .footer{
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        grid-template-rows: repeat(auto-fit, minmax(468px, 1fr));
+        color:#3d3d3d;
+        gap: 14px;
+        padding-top: 12px;
+        .socials{
+            display: flex;
+            justify-content: center;
+            .icons{
+                display: flex;
+                gap: 16px;
+                padding-top: 20px;
+                i{
+                    color:#3d3d3d;
+                    font-size: 2rem;
+                    cursor: pointer;
+                }
+            }
+        }
+        
+        .footerCard{
+
+            h1{
+                padding-bottom: 28px;
+                font-size: 1.3rem;
+            }
+            .texts{
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+              
+                transition: .2s;
+                p{
+                  width: fit-content;
+                  cursor: pointer;
+                }
+              p:hover{
+                transform: scale(1.05);
+              }
+            }
+
+
+        }
+    }
+}
 }
