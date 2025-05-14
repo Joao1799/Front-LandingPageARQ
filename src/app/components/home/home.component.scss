@@ -54,6 +54,7 @@
   height: 90vh;
   width: 100%;
   background-color: #bfac8e1f;
+  
   body{
     display: flex;
     width: 100%;
@@ -793,6 +794,7 @@
                 p{
                   width: fit-content;
                   cursor: pointer;
+                  transition: .2s;
                 }
               p:hover{
                 transform: scale(1.05);

@@ -76,27 +76,78 @@ export class HomeComponent {
     }
   }
 
-  @ViewChild('bodyhome', { static: true }) bodyhome!: ElementRef;
-  @ViewChild('headerHome', {static: true}) headerHome!: ElementRef;
+  @ViewChild('bodyhome') bodyhome!: ElementRef;
+  @ViewChild('headerHome') headerHome!: ElementRef;
 
   ngAfterViewInit(): void {
-    gsap.to(this.bodyhome.nativeElement, {
-      opacity: 1,
-      duration: 2,
-      backgroundColor:'white',
-      ease: 'power2.out'
-    });
+    const h2 = this.headerHome.nativeElement.querySelector('h2');
+    const h1 = this.headerHome.nativeElement.querySelector('h1');
 
+    gsap.set([this.bodyhome.nativeElement, h2, h1], { opacity: 0, y: 0 });
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.timeline()
+      .to(this.bodyhome.nativeElement, {
+        opacity: 1,
+        scale: 1,
+        duration: 1.2,
+        ease: 'power2.out'
+      })
+      .to(h2, {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: 'power2.out'
+      }, "-=0.6")
+      .to(h1, {
+        opacity: 1,
+        y: 0,
+        scale: 1.02,
+        duration: 1.2,
+        ease: 'back.out(1.4)'
+      }, "-=0.8");
 
-    gsap.from(this.headerHome.nativeElement, {
-      scrollTrigger: {
-        trigger: this.headerHome.nativeElement,
-        start: 'top 80%',
-        toggleActions: 'play none none reverse'
-      },
-      y: 300,
-      opacity: 0,
-      duration: 1.5,
-    });
+      gsap.fromTo(".box-text",
+        {
+          // x: -600,
+          opacity: 0.2,
+          filter: "blur(10px)"
+        },
+        {
+          scrollTrigger: {
+            trigger: ".box-text",
+            start: "top 40%",
+            end: "top 20%",
+            scrub: 1, // anima sincronizada com scroll
+            markers: true, // ative para debug
+          },
+          // x: 0,
+          opacity: 1,
+          filter: "blur(0px)",
+          ease: "power2.inOut"
+        }
+      );
+      
+      gsap.fromTo(".box-img",
+        {
+          // x: 600,
+          opacity: 0.2,
+          filter: "blur(10px)"
+        },
+        {
+          scrollTrigger: {
+            trigger: ".box-img",
+            start: "top 40%",
+            end: "top 20%",
+            scrub: 1,
+          },
+          // x: 0,
+          opacity: 1,
+          filter: "blur(0px)",
+          ease: "power2.inOut"
+        }
+      );
+    
   }
+
+  
 }
