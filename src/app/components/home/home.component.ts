@@ -78,6 +78,7 @@ export class HomeComponent {
 
   @ViewChild('bodyhome') bodyhome!: ElementRef;
   @ViewChild('headerHome') headerHome!: ElementRef;
+  @ViewChild('servicosRef') servicosRef!: ElementRef;
 
   ngAfterViewInit(): void {
     const h2 = this.headerHome.nativeElement.querySelector('h2');
@@ -86,7 +87,7 @@ export class HomeComponent {
     gsap.set([this.bodyhome.nativeElement, h2, h1], { opacity: 0, y: 0 });
     gsap.registerPlugin(ScrollTrigger);
     gsap.timeline()
-      .to(this.bodyhome.nativeElement, {
+    .to(this.bodyhome.nativeElement, {
         opacity: 1,
         scale: 1,
         duration: 1.2,
@@ -106,19 +107,38 @@ export class HomeComponent {
         ease: 'back.out(1.4)'
       }, "-=0.8");
 
-      gsap.fromTo(".box-text",
+      gsap.fromTo(".body",
         {
-          // x: -600,
-          opacity: 0.2,
-          filter: "blur(10px)"
+          opacity: 1,
+          filter: "blur(0px)",
+          ease: "power2.inOut"
         },
         {
           scrollTrigger: {
             trigger: ".box-text",
-            start: "top 40%",
+            start: "top 80%",
             end: "top 20%",
             scrub: 1, // anima sincronizada com scroll
-            markers: true, // ative para debug
+            // markers: true, // ative para debug
+          },
+          opacity: 0.3,
+          filter: "blur(5px)"
+        }
+      );
+
+      gsap.fromTo(".box-text",
+        {
+          // x: -600,
+          opacity: 0.2,
+          filter: "blur(7px)"
+        },
+        {
+          scrollTrigger: {
+            trigger: ".box-text",
+            start: "top 85%",
+            end: "top 20%",
+            scrub: 1, // anima sincronizada com scroll
+            // markers: true, // ative para debug
           },
           // x: 0,
           opacity: 1,
@@ -131,12 +151,12 @@ export class HomeComponent {
         {
           // x: 600,
           opacity: 0.2,
-          filter: "blur(10px)"
+          filter: "blur(7px)"
         },
         {
           scrollTrigger: {
             trigger: ".box-img",
-            start: "top 40%",
+            start: "top 85%",
             end: "top 20%",
             scrub: 1,
           },
@@ -146,8 +166,39 @@ export class HomeComponent {
           ease: "power2.inOut"
         }
       );
-    
-  }
 
-  
+      gsap.fromTo(".sobreBox",
+        {
+          opacity: 1,
+          filter: "blur(0px)",
+          ease: "power2.inOut"
+        },
+        {
+          scrollTrigger: {
+            trigger: ".servicos",
+            start: "top 80%",
+            end: "top 20%",
+            scrub: 1, // anima sincronizada com scroll
+            //markers: true, // ative para debug
+
+          },
+          opacity: 0.3,
+          filter: "blur(5px)"
+        }
+      );
+
+
+      const section = this.servicosRef.nativeElement;
+      ScrollTrigger.create({
+        trigger: section,
+        start: 'top 10%',
+        endTrigger: '.projetos',
+        end: '+=1000',
+        pin: true,
+        scrub: 0.5,
+        anticipatePin: 1,
+        pinSpacing: true,
+        markers: true
+      });
+    }
 }
