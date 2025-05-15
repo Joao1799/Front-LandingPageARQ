@@ -8,7 +8,7 @@
     </div>
   </div>
 
-  <div class="sobre">
+  <div class="sobre" id="sobreScroll">
       <body class="sobreBox">
         <div class="box-text"  #boxText>
           <div class="info">
@@ -112,7 +112,7 @@
     </div>
   </div>
 
-  <div class="projetos">
+  <div class="projetos"  id="projetosScroll">
     <header>
       <h1>Meus projetos</h1>
     </header>
@@ -184,13 +184,13 @@
     </body>
   </div>
 
-  <div class="banner">
+  <div class="banner" id="contatoScroll">
     <header>
       <h1>Projetos autorais para vidas únicas. Que tal começarmos o seu?</h1>
     </header>
   </div>
 
-  <div class="contato">
+  <div class="contato" >
     <div class="background-blur">
       
     </div>
@@ -212,28 +212,42 @@
           </div>
         </div>
       <div class="boxTXT">
-        <form action="">
+        <form action="" (ngSubmit)="onSubmit()">
           <header>
             <h1>Entre em contato:</h1>
           </header>
           <body>
             <article>
-              <label for="nome">Nome Completo:</label>
+              <label for="nome">Nome Completo*:</label>
               <input type="text" id="nome" placeholder="Ex: João da Silva">
             </article>
             
             <article>
-              <label for="telefone">Telefone:</label>
+              <label for="telefone">Telefone*:</label>
               <input type="tel" id="telefone" placeholder="(xx) xxxx-xxxx">
             </article>
             
             <article>
-              <label for="email">Email:</label>
+              <label for="email">Email*:</label>
               <input type="email" id="email" placeholder="Ex: joao@gmail.com">
+            </article>
+
+            <article>
+              <label for="arquivo">Arquivo de Exemplo: <label class="op">(opcional)</label> </label>
+              <p-fileUpload 
+                name="arquivo" 
+                accept=".pdf,.docx,.doc,.psd"
+                maxFileSize="10000000" 
+                (onSelect)="onFileSelect($event)" 
+                (onUpload)="onUpload($event)"
+                chooseLabel="Escolher Arquivo" 
+                uploadLabel="Enviar Arquivo"
+                cancelLabel="Cancelar">
+              </p-fileUpload>
             </article>
           </body>
           <footer>
-            <button>Enviar</button>
+            <button type="button" (click)="onSubmit()">Enviar</button>
           </footer>
         </form>
       </div>

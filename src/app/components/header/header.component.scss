@@ -48,26 +48,13 @@ ul li a {
   color: #ffffff;
   text-transform: uppercase;
   letter-spacing: 1px;
+  cursor: pointer;
 }
 
 nav ul li a {
   font-size: 1.2rem;
   font-weight: bold;
-  background: linear-gradient(90deg, #2c2c2c, #000000);
-  background-size: 200%;
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-}
 
-@keyframes gradient-move {
-  0% {
-    background-position: 0%;
-  }
-  100% {
-    background-position: 200%;
-  }
 }
 
 ul:hover li a {
@@ -77,8 +64,7 @@ ul:hover li a {
 ul li a:hover {
   opacity: 1;
   transform: scale(1.2);
-  background: linear-gradient(90deg, #ffffff, #000000);
-  animation: gradient-move 5s linear infinite;
+
 }
 
 @media screen and  (max-width: 700px) {

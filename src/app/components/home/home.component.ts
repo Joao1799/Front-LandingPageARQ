@@ -2,6 +2,7 @@ import { Component, HostListener, ElementRef, OnInit, AfterViewInit, ViewChild  
 import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { FileUploadModule } from 'primeng/fileupload'; 
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ToastModule } from 'primeng/toast';
@@ -13,12 +14,15 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import 'aos/dist/aos.css';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
+import { ScrollService } from '../scroll.service';
 
 gsap.registerPlugin(ScrollTrigger);
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CarouselModule, ButtonModule,ReactiveFormsModule,InputTextModule,InputTextareaModule,ToastModule,InputMaskModule,DynamicDialogModule],
+  imports: [FileUploadModule,CarouselModule, ButtonModule,ReactiveFormsModule,InputTextModule,InputTextareaModule,ToastModule,InputMaskModule,DynamicDialogModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   providers: [MessageService, homeService,DialogService]
@@ -34,21 +38,97 @@ export class HomeComponent {
   rfCard: DynamicDialogRef | undefined;
   widthCard: any;
 
-  constructor( private homeService: homeService, private fb: FormBuilder,private messageService: MessageService,public dialogService: DialogService) { }
+  nome!: string;
+  telefone!: string;
+  email!: string;
+  arquivo: any;
+  uploadResponse: string = '';
+
+  constructor(
+    private route: ActivatedRoute, 
+    private http: HttpClient,
+    private homeService: homeService, 
+    private fb: FormBuilder,
+    private messageService: MessageService,
+    public dialogService: DialogService,
+    private scrollService: ScrollService,
+    private el: ElementRef) { }
+
+  // ngOnInit() {
+  //   this.getForms();
+  // }
+
+  // getForms(){
+  //   this.formulario =new FormGroup({
+  //     nome: new FormControl('', [Validators.required]), 
+  //     email: new FormControl('', [Validators.email]), 
+  //     numero: new FormControl('', [Validators.required, this.formatadorNumero()]), 
+  //     cidade: new FormControl('', [Validators.required]), 
+  //     descricao: new FormControl('',[Validators.required] ), 
+  //   }) 
+  // }
+
+    // onSubmit() {
+  //   this.messageService.add({ severity: 'info', summary: 'info', detail: 'Enviando..' });
+  //   if (this.formulario.valid) {
+  //     this.homeService.enviarParaWhatsApp(this.formulario.value).subscribe({
+  //       next: (response) => {
+  //         console.log('Dados enviados para o WhatsApp:', response);
+  //         this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Seu projeto foi enviado!' });
+  //         window.location.reload()
+  //       },
+  //       error: (error) => {
+  //         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Erro ao enviar projeto' });
+  //         console.error('Erro ao enviar dados para o WhatsApp:', error);
+  //       }
+  //     });
+  //   }
+  // }
 
   ngOnInit() {
-    this.getForms();
+    this.scrollService.scrollToSection$.subscribe((sectionId: string) => {
+      const element = this.el.nativeElement.querySelector('#' + sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
   }
 
-  getForms(){
-    this.formulario =new FormGroup({
-      nome: new FormControl('', [Validators.required]), 
-      email: new FormControl('', [Validators.email]), 
-      numero: new FormControl('', [Validators.required, this.formatadorNumero()]), 
-      cidade: new FormControl('', [Validators.required]), 
-      descricao: new FormControl('',[Validators.required] ), 
-    }) 
+  onFileSelect(event: any) {
+    console.log('Arquivo selecionado: ', event.files);
+    this.arquivo = event.files[0];
   }
+
+  onUpload(event: any) {
+    console.log('Arquivo enviado com sucesso!', event);
+    this.uploadResponse = 'Arquivo enviado com sucesso!';
+  }
+
+  onSubmit() {
+    const formData = new FormData();
+    formData.append('nome', this.nome);
+    formData.append('telefone', this.telefone);
+    formData.append('email', this.email);
+    
+    // Adicionando o arquivo ao FormData
+    if (this.arquivo) {
+      formData.append('arquivo', this.arquivo, this.arquivo.name);
+    }
+
+    // Enviando os dados para a API (aqui vai a URL do seu backend)
+    this.http.post('URL_DA_SUA_API', formData).subscribe(
+      response => {
+        console.log('Mensagem enviada com sucesso!', response);
+        // Ações adicionais (ex: feedback ao usuário)
+      },
+      error => {
+        console.error('Erro ao enviar a mensagem:', error);
+        // Tratamento de erro
+      }
+    );
+  }
+
+
   formatadorNumero(): ValidatorFn {
     const formataNumero = /^\(\d{2}\)\s\d{9}$/;
     return (control: AbstractControl): ValidationErrors | null => {
@@ -57,28 +137,22 @@ export class HomeComponent {
     };
   }
 
-  onSubmit() {
-    this.messageService.add({ severity: 'info', summary: 'info', detail: 'Enviando..' });
-    if (this.formulario.valid) {
-      this.homeService.enviarParaWhatsApp(this.formulario.value).subscribe({
-        next: (response) => {
-          console.log('Dados enviados para o WhatsApp:', response);
-          this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Seu projeto foi enviado!' });
-          window.location.reload()
-        },
-        error: (error) => {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Erro ao enviar projeto' });
-          console.error('Erro ao enviar dados para o WhatsApp:', error);
-        }
-      });
-    }
-  }
+
 
   @ViewChild('bodyhome') bodyhome!: ElementRef;
   @ViewChild('headerHome') headerHome!: ElementRef;
   @ViewChild('servicosRef') servicosRef!: ElementRef;
 
   ngAfterViewInit(): void {
+    this.route.fragment.subscribe(fragment => {
+      if (fragment) {
+        const element = document.getElementById(fragment);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    });
+
     const h2 = this.headerHome.nativeElement.querySelector('h2');
     const h1 = this.headerHome.nativeElement.querySelector('h1');
 

@@ -490,7 +490,7 @@
 }
 
 .projetos{
-    background-color: #F0ECE5;
+  background-color: #F0ECE5;
   height: 100%; 
   padding: 24px;
   
@@ -583,12 +583,11 @@
       background-position: center;
       background-repeat: no-repeat;
       box-shadow: -1px 2px 10px 1px rgba(0, 0, 0, 0.315);
+      transition: 0.5s;
     }
-    // .boxImg:hover{
-    //   .card{
-    //     transform: scale(1.02);
-    //   }
-    // }
+    .boxImg:hover{
+        transform: scale(1.01);
+    }
   }
 }
 
@@ -685,9 +684,9 @@
       }
       
       form{
-        background-color: white;
-        width: 60%;
-        height: 60%;
+        background-color: #F0ECE5;
+        width: 70%;
+        height: 80%;
         padding: 1rem;
         display: flex;
         justify-content: center;
@@ -722,21 +721,28 @@
               border-radius: 4px;
               padding: 0.735rem;
               font-size: 14px;
-              background-color: #dfdfdf;
+              background-color: #F0ECE5;
+              border: 1px solid black;
               color: rgb(0, 0, 0);
-              transition: 0.2s;
+              transition: 0.5s;
             }
 
             input:focus {
               outline: none;
               border: none;
-              box-shadow: 0 0 0 2px rgba(42, 42, 43, 0.25); /* opcional, para efeito */
+              box-shadow: 0 0 0 1px rgba(42, 42, 43, 0.25); /* opcional, para efeito */
             }
 
             input::placeholder {
               color: #888; /* Cor do texto */
               font-style: italic; /* Estilo de fonte, opcional */
             }
+          }
+
+          .op{
+            color: #888; /* Cor do texto */
+            font-style: italic;
+            font-size: 14px;
           }
         }
 
@@ -745,16 +751,17 @@
           justify-content: flex-end;
           button{
             border: none;
-            border-radius: 2px;
+            border-radius: 4px;
             padding: 0.535rem 1.35rem;
-            background-color: #525252;
-            color: white;
+            background-color: #ecdcbf;
+            color: black;
             font-size: 1rem;
-            transition: .2s;
+            transition: .4s;
           }
 
           button:hover{
-            transform: scale(1.1);
+            transform: scale(1.05);
+            box-shadow: 0 0 0 0.1rem #88724d;
           }
         }
       }
@@ -788,9 +795,16 @@
                     color:#3d3d3d;
                     font-size: 2rem;
                     cursor: pointer;
+                    height: fit-content;
+                    transition: transform 0.2s ease-in-out;
+                }
+                i:hover{
+                  transform: scale(1.1);
                 }
             }
         }
+
+
         
         .footerCard{
 
@@ -818,4 +832,75 @@
         }
     }
 }
+}
+
+
+::ng-deep{
+
+  .p-fileupload{
+    border-radius: 4px;
+    width: 100%;
+
+    .p-progressbar{
+      display: none;
+    }
+  }
+
+  .p-fileupload .p-fileupload-buttonbar {
+    padding: 0.5rem 0.345rem;
+    gap: 10px;
+    display: flex;
+    justify-content: none;
+    gap: 8px;
+    background-color: #c2a36d;
+    border: none;
+    .p-button{
+      padding: 0.2rem;
+      gap: 6px;
+      border-radius: 4px;
+      border: none;
+      border-radius: 4px;
+      padding: 0.535rem 1.35rem;
+      background-color: #ecdcbf;
+      color: black;
+      font-size: 1rem;
+      transition: .4s;
+      
+      .p-button-label {
+        transition-duration: 0.2s;
+        font-weight: 400;
+        font-size: 14px;
+      }
+    }
+    
+    .p-button:hover{
+      outline: 0 none;
+      outline-offset: 0;
+      box-shadow: 0 0 0 0.1rem #88724d;
+    }
+  }
+  .p-fileupload-row {
+    white-space: nowrap;
+    .p-button{
+      display: none;
+    }
+    .p-fileupload-filename{
+      text-overflow: ellipsis;
+      overflow: hidden;
+      padding: 0.5rem 0.345rem;
+    }
+    div{
+      padding: 0.5rem 0.345rem;
+      .p-button.p-button-icon-only {
+        width: 2rem;
+        padding: 0.2rem;
+    }
+    }
+  }
+
+  .p-fileupload .p-fileupload-content {
+    padding: 0px;
+    border:none
+    
+  }
 }
