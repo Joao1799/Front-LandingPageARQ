@@ -10,8 +10,6 @@ import { homeService } from './home.service';
 import { InputMaskModule } from 'primeng/inputmask';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { CardsInfoComponent } from '../modal/cards-info/cards-info.component';
-import * as AOS from 'aos';
 import 'aos/dist/aos.css';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -128,7 +126,6 @@ export class HomeComponent {
 
       gsap.fromTo(".box-text",
         {
-          // x: -600,
           opacity: 0.2,
           filter: "blur(7px)"
         },
@@ -187,18 +184,59 @@ export class HomeComponent {
         }
       );
 
-
       const section = this.servicosRef.nativeElement;
       ScrollTrigger.create({
         trigger: section,
-        start: 'top 10%',
+        start: 'bottom 85%',
         endTrigger: '.projetos',
-        end: '+=1000',
+        end: '+=750',
         pin: true,
         scrub: 0.5,
         anticipatePin: 1,
         pinSpacing: true,
-        markers: true
+        // markers: true
+      });
+
+      // gsap.from('.titulo-servicos', {
+      //   scrollTrigger: {
+      //     trigger: section,
+      //     start: 'top center',
+      //     end: 'bottom center',
+      //     scrub: 1,
+      //   },
+      //   opacity: 0,
+      //   y: 100,
+      //   duration: 1,
+      //   ease: 'power2.out',
+      // });
+
+      gsap.from('.titulo-servicos span', {
+        scrollTrigger: {
+          trigger: '.servicos',
+          start: 'top center',
+          end: 'bottom center',
+          scrub: 1,
+        },
+        opacity: 0,
+        y: 50,
+        stagger: 0.1,
+        ease: 'power3.out',
+      });
+
+      const grids = gsap.utils.toArray('.grid, .grid1, .grid2, .grid3, .grid4, .grid5, .grid6');
+      gsap.from(grids, { //Está animando todos os elementos do array
+        opacity: 0,
+        y: 100,
+        duration: 1,
+        ease: 'power3.out',
+        stagger: 0.2, //Adiciona um atraso de 0.2 segundos entre cada elemento animado.  efeito de "entrada em sequência"
+        scrollTrigger: {
+          trigger: '.servicos',
+          start: 'top 70%',
+          end: 'bottom top',
+          scrub: 1,
+          // markers: true
+        }
       });
     }
 }

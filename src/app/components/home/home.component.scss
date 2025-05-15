@@ -2,6 +2,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background-color: #F0ECE5;
 }
 
 
@@ -9,7 +10,7 @@
   height: 100vh;
   width: 100%;
   padding: 16px ;
-  background-color: #bfac8e1f;
+  background-color: #F0ECE5;
   .body{
     display: flex;
     flex-direction: row;
@@ -52,7 +53,7 @@
 .sobre{
   height: 90vh;
   width: 100%;
-  background-color: #bfac8e1f;
+    background-color: #F0ECE5;
   
   body{
     display: flex;
@@ -131,6 +132,10 @@
       }
     }
   }
+}
+
+.pin-wrapper {
+  position: relative;
 }
 
 .servicos{
@@ -482,12 +487,10 @@
       }
     }
     }
-
-
 }
 
 .projetos{
-  background-color: #bfac8e1f;
+    background-color: #F0ECE5;
   height: 100%; 
   padding: 24px;
   
@@ -509,8 +512,9 @@
     gap: 3.5rem;
     padding: 16px;
     overflow: hidden;
+    background-color: #F0ECE5;
     .card{
-      background-color: #F7F5F1;
+      background-color: #F0ECE5;
       border-radius: 8px;
       min-height: 700px;
       transition: 1s;
@@ -589,7 +593,7 @@
 }
 
 .banner{
-  background-color: #bfac8e1f;
+  background-color: #F0ECE5;
   width: 100%;
   height: 15vh;
   display: flex;
@@ -762,7 +766,8 @@
 .footer{
   height: 35vh;
   // background-color: blue;
-  background-color: #eee9e11f; 
+  background-color: #F0ECE5;
+
 
   section.thereed-section{
     .footer{
