@@ -18,6 +18,7 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { ScrollService } from '../scroll.service';
 
+
 gsap.registerPlugin(ScrollTrigger);
 @Component({
   selector: 'app-home',
@@ -54,37 +55,6 @@ export class HomeComponent {
     private scrollService: ScrollService,
     private el: ElementRef) { }
 
-  // ngOnInit() {
-  //   this.getForms();
-  // }
-
-  // getForms(){
-  //   this.formulario =new FormGroup({
-  //     nome: new FormControl('', [Validators.required]), 
-  //     email: new FormControl('', [Validators.email]), 
-  //     numero: new FormControl('', [Validators.required, this.formatadorNumero()]), 
-  //     cidade: new FormControl('', [Validators.required]), 
-  //     descricao: new FormControl('',[Validators.required] ), 
-  //   }) 
-  // }
-
-    // onSubmit() {
-  //   this.messageService.add({ severity: 'info', summary: 'info', detail: 'Enviando..' });
-  //   if (this.formulario.valid) {
-  //     this.homeService.enviarParaWhatsApp(this.formulario.value).subscribe({
-  //       next: (response) => {
-  //         console.log('Dados enviados para o WhatsApp:', response);
-  //         this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Seu projeto foi enviado!' });
-  //         window.location.reload()
-  //       },
-  //       error: (error) => {
-  //         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Erro ao enviar projeto' });
-  //         console.error('Erro ao enviar dados para o WhatsApp:', error);
-  //       }
-  //     });
-  //   }
-  // }
-
   ngOnInit() {
     this.scrollService.scrollToSection$.subscribe((sectionId: string) => {
       const element = this.el.nativeElement.querySelector('#' + sectionId);
@@ -92,42 +62,29 @@ export class HomeComponent {
         element.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     });
+    this.getForms();
+  }
+
+  getForms() {
+    this.formulario = new FormGroup({
+      nome: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.email]),
+      numero: new FormControl('', [Validators.required,]),
+      arquivo: new FormControl(null)
+    });
   }
 
   onFileSelect(event: any) {
-    console.log('Arquivo selecionado: ', event.files);
-    this.arquivo = event.files[0];
+    const selectedFile = event.files?.[0];
+    this.arquivo = selectedFile;
+    this.formulario.patchValue({ arquivo: selectedFile });
+    this.formulario.get('arquivo')?.updateValueAndValidity();
   }
 
   onUpload(event: any) {
     console.log('Arquivo enviado com sucesso!', event);
     this.uploadResponse = 'Arquivo enviado com sucesso!';
   }
-
-  onSubmit() {
-    const formData = new FormData();
-    formData.append('nome', this.nome);
-    formData.append('telefone', this.telefone);
-    formData.append('email', this.email);
-    
-    // Adicionando o arquivo ao FormData
-    if (this.arquivo) {
-      formData.append('arquivo', this.arquivo, this.arquivo.name);
-    }
-
-    // Enviando os dados para a API (aqui vai a URL do seu backend)
-    this.http.post('URL_DA_SUA_API', formData).subscribe(
-      response => {
-        console.log('Mensagem enviada com sucesso!', response);
-        // Ações adicionais (ex: feedback ao usuário)
-      },
-      error => {
-        console.error('Erro ao enviar a mensagem:', error);
-        // Tratamento de erro
-      }
-    );
-  }
-
 
   formatadorNumero(): ValidatorFn {
     const formataNumero = /^\(\d{2}\)\s\d{9}$/;
@@ -137,13 +94,48 @@ export class HomeComponent {
     };
   }
 
+  onSubmit() {
+    this.messageService.add({ severity: 'info', summary: 'info', detail: 'Enviando..' });
 
-
+    if (this.formulario.valid) {
+      this.homeService.enviarParaWhatsApp(this.formulario.value).subscribe({
+        next: (response) => {
+          console.log('Dados enviados para o WhatsApp:', response);
+          this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Seu projeto foi enviado!' });
+          window.location.reload();
+        },
+        error: (error) => {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Erro ao enviar projeto' });
+          console.error('Erro ao enviar dados para o WhatsApp:', error);
+        }
+      });
+    } else {
+      this.messageService.add({ severity: 'warn', summary: 'Atenção', detail: 'Preencha todos os campos obrigatórios.' });
+      console.warn('Formulário inválido:', this.formulario.errors, this.formulario.value);
+    }
+  }
   @ViewChild('bodyhome') bodyhome!: ElementRef;
   @ViewChild('headerHome') headerHome!: ElementRef;
   @ViewChild('servicosRef') servicosRef!: ElementRef;
+  @ViewChild('animatedText', { static: true }) animatedText!: ElementRef;
+  @ViewChild('contatoRef', { static: true }) contatoRef!: ElementRef;
 
   ngAfterViewInit(): void {
+    const grids = gsap.utils.toArray('.grid, .grid1, .grid2, .grid3, .grid4, .grid5, .grid6');
+    const h2 = this.headerHome.nativeElement.querySelector('h2');
+    const h1 = this.headerHome.nativeElement.querySelector('h1');
+    const section = this.servicosRef.nativeElement;
+    const textElement = this.animatedText.nativeElement;
+    const words = textElement.innerText.split(' ');
+    textElement.innerHTML = words.map((word: any) =>  `<span class="word">${word}</span>`).join(' ');
+    const spans = textElement.querySelectorAll('.word');
+    const imgThai = this.contatoRef.nativeElement.querySelector('.space');
+    const boxTXT = this.contatoRef.nativeElement.querySelector('.boxTXT');
+
+    gsap.set([this.bodyhome.nativeElement, h2, h1], { opacity: 0, y: 0 });
+    gsap.registerPlugin(ScrollTrigger);
+
+
     this.route.fragment.subscribe(fragment => {
       if (fragment) {
         const element = document.getElementById(fragment);
@@ -153,13 +145,7 @@ export class HomeComponent {
       }
     });
 
-    const h2 = this.headerHome.nativeElement.querySelector('h2');
-    const h1 = this.headerHome.nativeElement.querySelector('h1');
-
-    gsap.set([this.bodyhome.nativeElement, h2, h1], { opacity: 0, y: 0 });
-    gsap.registerPlugin(ScrollTrigger);
-    gsap.timeline()
-    .to(this.bodyhome.nativeElement, {
+    gsap.timeline().to(this.bodyhome.nativeElement, {
         opacity: 1,
         scale: 1,
         duration: 1.2,
@@ -170,7 +156,7 @@ export class HomeComponent {
         y: 0,
         duration: 1,
         ease: 'power2.out'
-      }, "-=0.6")
+      }, "-=0.4")
       .to(h1, {
         opacity: 1,
         y: 0,
@@ -258,19 +244,6 @@ export class HomeComponent {
         }
       );
 
-      const section = this.servicosRef.nativeElement;
-      ScrollTrigger.create({
-        trigger: section,
-        start: 'bottom 85%',
-        endTrigger: '.projetos',
-        end: '+=750',
-        pin: true,
-        scrub: 0.5,
-        anticipatePin: 1,
-        pinSpacing: true,
-        // markers: true
-      });
-
       // gsap.from('.titulo-servicos', {
       //   scrollTrigger: {
       //     trigger: section,
@@ -287,8 +260,8 @@ export class HomeComponent {
       gsap.from('.titulo-servicos span', {
         scrollTrigger: {
           trigger: '.servicos',
-          start: 'top center',
-          end: 'bottom center',
+          start: 'top 80%',
+          end: 'top 10%',
           scrub: 1,
         },
         opacity: 0,
@@ -297,8 +270,7 @@ export class HomeComponent {
         ease: 'power3.out',
       });
 
-      const grids = gsap.utils.toArray('.grid, .grid1, .grid2, .grid3, .grid4, .grid5, .grid6');
-      gsap.from(grids, { //Está animando todos os elementos do array
+      gsap.from(grids, {
         opacity: 0,
         y: 100,
         duration: 1,
@@ -306,11 +278,95 @@ export class HomeComponent {
         stagger: 0.2, //Adiciona um atraso de 0.2 segundos entre cada elemento animado.  efeito de "entrada em sequência"
         scrollTrigger: {
           trigger: '.servicos',
-          start: 'top 70%',
-          end: 'bottom top',
+          start: 'top 80%',
+          end: 'top 10%',
           scrub: 1,
           // markers: true
         }
       });
+
+      gsap.from('.banner', {
+        scrollTrigger: {
+          trigger: section,
+          start: 'top center',
+          end: 'bottom center',
+          scrub: 1,
+        },
+        opacity: 0,
+        y: 100,
+        duration: 1,
+        ease: 'power2.out',
+      });
+
+      gsap.fromTo(spans,
+        { opacity: 0,
+          filter: 'blur(8px)',
+          y: 20 
+        },
+        {
+          y: 0,
+          duration: 0.6,
+          stagger: 0.15,
+          scrollTrigger: {
+            trigger: ".banner",
+            start: 'top 90%',
+            end: 'top 30%',
+            toggleActions: 'play none none none',
+            once: true,
+            scrub: true,
+            
+          },
+          opacity: 1,
+          filter: 'blur(0px)',
+        }
+      );
+
+      gsap.fromTo(imgThai,
+        { 
+          opacity: 0,
+          filter: 'blur(8px)',
+          x: -400 
+        },
+        {
+          duration: 1.5,
+          stagger: 0.15,
+          scrollTrigger: {
+            trigger: imgThai,
+            start: 'top 50%',
+            end: 'top 15%',
+            toggleActions: 'play none none none',
+            once: true, 
+            // scrub: true,
+          },
+          opacity: 1,
+          x: 0,
+          filter: 'blur(0px)',
+        }
+      );
+
+      gsap.fromTo(boxTXT,
+        { 
+          opacity: 0,
+          filter: 'blur(8px)',
+          x: 400 
+        },
+        {
+          duration: 1.5,
+          stagger: 0.15,
+          scrollTrigger: {
+            trigger: boxTXT,
+            start: 'top 50%',
+            end: 'top 15%',
+            toggleActions: 'play none none none',
+            once: true, 
+            // scrub: true,
+            // markers:true
+          },
+          opacity: 1,
+          x: 0,
+          filter: 'blur(0px)',
+        }
+      );
+
     }
 }

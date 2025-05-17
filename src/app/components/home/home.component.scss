@@ -640,6 +640,7 @@
       height: 100%;
       display: flex;
       justify-content: center;
+      opacity: 0;
 
       .space{
         display: flex;
@@ -648,6 +649,7 @@
         position: relative;
         height: 100%;
         border-radius: 12px 0px 0px 12px;
+        opacity: 0;
 
         svg {
           filter: 
@@ -685,8 +687,8 @@
       
       form{
         background-color: #F0ECE5;
-        width: 70%;
-        height: 80%;
+        width: 60%;
+        height: 70%;
         padding: 1rem;
         display: flex;
         justify-content: center;
@@ -771,9 +773,10 @@
 }
 
 .footer{
-  height: 35vh;
+  height: 30vh;
   // background-color: blue;
   background-color: #F0ECE5;
+  overflow: hidden;
 
 
   section.thereed-section{
@@ -836,6 +839,30 @@
 
 
 ::ng-deep{
+  .p-inputtext.p-inputmask {
+    border: 1px solid black;
+    border-radius: 4px;
+    padding: 0.735rem;
+    font-size: 14px;
+    background-color: #F0ECE5;
+    color: rgb(0, 0, 0);
+    transition: 0.5s !important;
+    outline: none;
+    width: 100%; 
+    box-sizing: border-box; 
+  }
+
+  .p-inputtext.p-inputmask:focus {
+    outline: none;
+    border: none;
+    box-shadow: 0 0 0 1px rgba(42, 42, 43, 0.25); 
+    background-color: #F0ECE5;
+  }
+  
+  .p-inputtext.p-inputmask::placeholder {
+    color: #888;
+    font-style: italic;
+  }
 
   .p-fileupload{
     border-radius: 4px;
