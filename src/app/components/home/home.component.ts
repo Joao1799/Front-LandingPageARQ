@@ -212,7 +212,7 @@ export class HomeComponent {
         },
         {
           scrollTrigger: {
-            trigger: ".box-img",
+            trigger: ".box-text",
             start: "top 85%",
             end: "top 20%",
             scrub: 1,
