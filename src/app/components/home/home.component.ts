@@ -42,7 +42,7 @@ export class HomeComponent {
   nome!: string;
   telefone!: string;
   email!: string;
-  arquivo: any;
+  arquivo: File | null = null;
   uploadResponse: string = '';
 
   constructor(
@@ -70,50 +70,34 @@ export class HomeComponent {
       nome: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.email]),
       numero: new FormControl('', [Validators.required,]),
-      arquivo: new FormControl(null)
     });
   }
 
-  onFileSelect(event: any) {
-    const selectedFile = event.files?.[0];
-    this.arquivo = selectedFile;
-    this.formulario.patchValue({ arquivo: selectedFile });
-    this.formulario.get('arquivo')?.updateValueAndValidity();
-  }
-
-  onUpload(event: any) {
-    console.log('Arquivo enviado com sucesso!', event);
-    this.uploadResponse = 'Arquivo enviado com sucesso!';
-  }
-
-  formatadorNumero(): ValidatorFn {
-    const formataNumero = /^\(\d{2}\)\s\d{9}$/;
-    return (control: AbstractControl): ValidationErrors | null => {
-      const valid = formataNumero.test(control.value);
-      return valid ? null : { numeroInvalido: true };
-    };
-  }
 
   onSubmit() {
-    this.messageService.add({ severity: 'info', summary: 'info', detail: 'Enviando..' });
-
     if (this.formulario.valid) {
-      this.homeService.enviarParaWhatsApp(this.formulario.value).subscribe({
+      const formData = new FormData();
+      formData.append('nome', this.formulario.get('nome')?.value);
+      formData.append('email', this.formulario.get('email')?.value);
+      formData.append('numero', this.formulario.get('numero')?.value);
+
+      this.messageService.add({ severity: 'info', summary: 'info', detail: 'Enviando..' });
+
+      this.homeService.enviarParaWhatsApp(formData).subscribe({
         next: (response) => {
-          console.log('Dados enviados para o WhatsApp:', response);
           this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Seu projeto foi enviado!' });
           window.location.reload();
         },
         error: (error) => {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Erro ao enviar projeto' });
-          console.error('Erro ao enviar dados para o WhatsApp:', error);
+          this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Erro ao enviar projeto' });
+          console.error('Erro:', error);
         }
       });
     } else {
       this.messageService.add({ severity: 'warn', summary: 'Atenção', detail: 'Preencha todos os campos obrigatórios.' });
-      console.warn('Formulário inválido:', this.formulario.errors, this.formulario.value);
     }
   }
+
   @ViewChild('bodyhome') bodyhome!: ElementRef;
   @ViewChild('headerHome') headerHome!: ElementRef;
   @ViewChild('servicosRef') servicosRef!: ElementRef;

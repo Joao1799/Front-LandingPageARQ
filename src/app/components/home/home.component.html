@@ -116,7 +116,7 @@
     <header>
       <h1>Meus projetos</h1>
     </header>
-    <div>
+    <body>
       <div class="card one">
         <div class="boxImg"></div>
         <div class="boxTxt">
@@ -181,7 +181,7 @@
         </div>
       </div>
       
-    </div>
+    </body>
   </div>
 
   <div class="banner" id="contatoScroll">
@@ -228,27 +228,14 @@
                 formControlName="numero" 
                 mask="(99) 99999-9999" 
                 placeholder="(xx) xxxxx-xxxx">
-                </p-inputMask>
-              </article>
+              </p-inputMask>
+            </article>
             
             <article>
               <label for="email">Email*:</label>
               <input type="email" id="email" formControlName="email"  placeholder="Ex: joao@gmail.com">
             </article>
-
-            <article>
-              <label for="arquivo">Arquivo de Exemplo: <label class="op">(opcional)</label> </label>
-              <p-fileUpload 
-                name="arquivo" 
-                accept=".pdf,.docx,.doc,.psd"
-                maxFileSize="10000000" 
-                (onSelect)="onFileSelect($event)" 
-                (onUpload)="onUpload($event)"
-                chooseLabel="Escolher Arquivo" 
-                uploadLabel="Enviar Arquivo"
-                cancelLabel="Cancelar">
-              </p-fileUpload>
-            </article>
+          
           </div>
           <footer>
             <button type="submit">Enviar</button>
@@ -286,8 +273,16 @@
         <article class="explore footerCard">
           <h1>Sobre</h1>
           <div class="texts">
-              <p>Quem sou</p>
-              <p>Portfólio</p>
+              <p>
+                <a href="#sobreScroll">
+                  Quem sou
+                </a>
+              </p>
+              <p>
+                <a href="#projetosScroll">
+                  Portfólio
+                </a>
+              </p>
               <p>Parcerias</p>
               <p>Processo Criativo</p>
               <p>Contato</p>
