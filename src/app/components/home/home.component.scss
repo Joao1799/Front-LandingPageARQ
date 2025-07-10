@@ -101,7 +101,7 @@
 }
 
 .sobre {
-  height: 90vh;
+  min-height: 90vh;
   width: 100%;
   background-color: #F0ECE5;
 
@@ -123,7 +123,7 @@
 
       .info {
         height: 70%;
-        width: 65%;
+        width: 85%;
         gap: 16px;
         display: flex;
         justify-content: center;
@@ -136,7 +136,7 @@
           font-weight: 400;
           font-family: "roboto";
           text-align: justify;
-          font-size: 1.2rem;
+          font-size: 1.1rem;
           line-height: 35px;
         }
 
@@ -179,7 +179,7 @@
 @media (max-width: 1024px) {
   .sobre{
     height: 100% !important;
-  }
+  
   .sobreBox {
     flex-direction: column;
     align-items: center !important;
@@ -206,7 +206,7 @@
     }
 
     p {
-      font-size: .8rem !important;
+      font-size: 1rem !important;
       line-height: 30px;
     }
   }
@@ -220,30 +220,35 @@
   }
 
   .box-img .space {
-    width: 30% !important;
+    width: 45% !important;
     height: 60% !important;
     justify-content: center !important;
     align-items: center !important;
 
   }
+  }
 }
 
 @media (max-width: 768px) {
+  .sobre{
   .box-text .info h1 {
     font-size: 3rem;
   }
 
   .box-text .info p {
-    font-size: 1rem;
+    font-size: 1.2rem;
     line-height: 28px;
   }
 
   .box-img .space {
+    width: 55% !important;
     height: auto;
+  }
   }
 }
 
 @media (max-width: 480px) {
+  .sobre{
   .box-text .info {
     width: 100% !important;
     height: 70% !important;
@@ -271,6 +276,7 @@
 
   .box-img .space {
     padding: 0 1rem;
+  }
   }
 }
 
@@ -691,7 +697,7 @@
 
 @media (max-width: 576px) {
   .servicos .box .text h1 {
-    font-size: 2.4rem;
+    font-size: 1.7rem;
   }
 
   .servicos .txt p {
@@ -726,7 +732,7 @@
     grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
     gap: 3.5rem;
     padding: 16px;
-    overflow: hidden;
+    // overflow: hidden;
     background-color: #F0ECE5;
     .card{
       background-color: #F0ECE5;
@@ -890,8 +896,39 @@
   align-items: center;
   header{
     font-size: 1.4rem;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding: 0px 16px;
     h1{
       font-weight: 400;
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .banner{
+    h1{
+      font-size: 1.8rem;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .banner{
+    h1{
+      width: 90%;
+      font-size: 1.8rem;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .banner{
+    h1{
+      width: 100%;
+
+      font-size: 1.7rem;
     }
   }
 }
@@ -925,6 +962,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+    padding: 16px 0px;
     .box-img {
       width: 50%;
       height: 100%;
@@ -978,7 +1016,7 @@
       form{
         background-color: #F0ECE5;
         width: 60%;
-        height: 70%;
+        min-height: 70%;
         padding: 1rem;
         display: flex;
         justify-content: center;
@@ -1060,6 +1098,102 @@
     }
   }
 
+}
+
+@media (max-width: 1024px) {
+  .contato {
+    .box {
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+
+      .box-img, .boxTXT {
+        width: 45%;
+        height: auto;
+      }
+
+      .boxTXT form {
+        width: 80%;
+        height: auto;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .contato {
+    height: auto;
+    .box {
+      flex-direction: column;
+      gap: 1rem;
+
+      .box-img, .boxTXT {
+        width: 90%;
+        height: auto;
+      }
+
+      .boxTXT form {
+        width: 90%;
+        height: auto;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .contato {
+    height: auto;
+    padding: 1rem 0;
+
+    .box {
+      flex-direction: column;
+      gap: 1rem;
+
+      .box-img, .boxTXT {
+        width: 95%;
+        height: auto;
+      }
+
+      .boxTXT {
+        header {
+          font-size: 1.2rem;
+        }
+      }
+
+      .boxTXT form {
+        width: 95%;
+        padding: 0.5rem;
+        gap: 0.5rem;
+
+        header {
+          font-size: 1.2rem;
+        }
+
+        div {
+          gap: 0.75rem;
+
+          article {
+            gap: 2px;
+
+            input {
+              font-size: 13px;
+              padding: 0.6rem;
+            }
+          }
+        }
+
+        footer {
+          justify-content: center;
+
+          button {
+            width: 100%;
+            padding: 0.5rem;
+            font-size: 0.95rem;
+          }
+        }
+      }
+    }
+  }
 }
 
 .footer{
