@@ -1,9 +1,19 @@
 {
   "version": 2,
+  "public": true,
   "builds": [
-    { "src": "dist/browser/**/*", "use": "@vercel/static" }
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "docs/browser"
+      }
+    }
   ],
   "routes": [
-    { "src": "/(.*)", "dest": "/index.html" }
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
   ]
 }
