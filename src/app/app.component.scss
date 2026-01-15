@@ -1,3 +1,7 @@
+body{
+	overflow-y:hidden;
+}
+
 ::ng-deep{
 	.p-dialog-header{
 		display: flex;

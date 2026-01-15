@@ -1,110 +1,315 @@
 <div class="container-main">
-  <div id="sobre" class="sobre">
-    <div class="background-first">
-      <img src="images/background/teste.png" class="ripado">
+  <div id="home" class="home page">
+    <div 
+      class="body"
+      #bodyhome
+      style="
+        background-image: url('/images/background/salaback.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      "
+    >
+      <header #headerHome>
+        <h2>~Arquiteta~</h2>
+        <h1>THAILINE</h1>
+      </header>
     </div>
-    <div class="sobre-mim efeito-txt">
-      <h1>Sobre mim</h1>
-      <p id="p" [innerHTML]="textoPadrao"></p>
-      <div class="fotos">
-        <img id="fts1" src="images/studio/sofa.jpg" />
-        <img id="fts2" src="images/studio/cadeira.jpg" />
-        <img id="fts3" src="images/studio/plantaespelho.jpg" />
+  </div>
+
+  <div class="sobre" id="sobreScroll">
+      <div class="sobreBox">
+        <div class="box-text"  #boxText>
+          <div class="info">
+              <h1>Sobre</h1>
+              <p>
+                Sou <strong>Thailine Moura</strong>, estudante de Arquitetura e Urbanismo no 7º período pela UDF.<br>
+                Apaixonada pelo impacto da arquitetura, alio técnica e criatividade para desenvolver soluções inovadoras.<br>
+                Tenho experiência com AutoCAD, SketchUp, Revit, Photoshop, V-Ray e Lumion, além de atuação em órgãos públicos e escritórios de arquitetura. 
+                Participei de projetos como o Parque Recreativo do Setor O, focando na criação de espaços urbanos que promovem bem-estar. <br><br>
+                Busco constantemente aprimoramento e acredito no poder da arquitetura para transformar vidas.
+              </p>
+              <div class="circle-reveal"></div>
+          </div>
+        </div>
+        <div class="box-img">
+          <div class="space">
+            <svg viewBox="0 0 170 170" xmlns="http://www.w3.org/2000/svg" class="svg-bed">
+              <defs>
+                <clipPath id="clip-shape">
+                  <path fill="#E8DAFF" d="M45.7,-73C56.6,-64.1,61.1,-47,63.2,-31.9C65.4,-16.8,65.3,-3.7,62.5,8.3C59.7,20.4,54.3,31.4,47.3,42.8C40.2,54.2,31.6,66.1,21.5,65.5C11.5,64.8,0.1,51.6,-12.2,46C-24.5,40.4,-37.8,42.3,-48.2,37.7C-58.6,33,-66.1,21.8,-65.3,10.9C-64.5,0,-55.4,-10.5,-47,-18.3C-38.5,-26.1,-30.8,-31,-23.1,-41.4C-15.4,-51.7,-7.7,-67.6,4.8,-75.1C17.4,-82.6,34.8,-81.9,45.7,-73Z" transform="translate(100 100)" />
+                </clipPath>
+                <clipPath>
+                  <path fill="#E8DAFF" d="M38.8,-49.2C51.8,-44.1,64.7,-34.6,68.3,-22.4C71.9,-10.2,66.3,4.7,58.8,16.5C51.4,28.3,42.2,36.9,32.1,49.7C22,62.5,11,79.6,-3.3,84.2C-17.7,88.8,-35.4,80.9,-49.5,69.4C-63.6,57.9,-74.1,42.7,-78.2,26.3C-82.2,10,-79.8,-7.6,-71.2,-19.8C-62.6,-32,-47.9,-38.9,-35,-44C-22.2,-49.2,-11.1,-52.6,0.9,-53.9C12.9,-55.2,25.9,-54.3,38.8,-49.2Z" transform="translate(100 100)" />
+                </clipPath>
+              </defs>
+              <image href="images/thai/thaiimg5.jpg" x="20" y="0" width="170" height="170" clip-path="url(#clip-shape)"/>
+            </svg>
+
+          </div>
+        </div>
+      </div>
+  </div>
+
+  <div class="servicos" #servicosRef>
+    <div class="box">
+      <div class="text textServicos">
+        <h1 class="titulo-servicos">
+           <!-- ARQUITETURA -->
+           <span>A</span><span>R</span><span>Q</span><span>U</span><span>I</span><span>T</span><span>E</span><span>T</span><span>U</span><span>R</span><span>A</span>
+
+        </h1>
+      </div>
+      <div class="container">
+        <div class="grid">
+          <div class="imgColum">
+            <!-- <div class="txt">
+                <h1>Aconselhamento<br> Pós-Projeto</h1>
+                <p>Nossa parceria não termina na entrega do projeto! Oferecemos suporte e orientação para garantir que cada detalhe seja executado conforme o planejado</p>
+            </div> -->
+          </div>
+        </div>
+        <div class="grid1">
+          <div class="imgColum">
+            <!-- <div class="txt">
+              <h1>Do Conceito à Execução</h1>
+              <p> Criamos projetos arquitetônicos que unem criatividade e precisão técnica. Cada traço reflete uma visão única, garantindo espaços harmônicos, eficientes e atemporais.</p>
+            </div>  -->
+          </div>
+        </div>
+        <div class="grid2"> 
+          <div class="imgColum">
+            <!-- <div class="txt">
+              <h1>Do Conceito à Execução</h1>
+              <p> Criamos projetos arquitetônicos que unem criatividade e precisão técnica. Cada traço reflete uma visão única, garantindo espaços harmônicos, eficientes e atemporais.</p>
+            </div>  -->
+          </div>
+        </div>
+        <div class="grid3"> 
+          <div class="imgColum">
+            <!-- <div class="txt">
+              <h1>Do Conceito à Execução</h1>
+              <p> Criamos projetos arquitetônicos que unem criatividade e precisão técnica. Cada traço reflete uma visão única, garantindo espaços harmônicos, eficientes e atemporais.</p>
+            </div>  -->
+          </div>
+        </div>
+        <div class="grid4">
+          <div class="imgColum">
+            <!-- <div class="txt">
+              <h1>Do Conceito à Execução</h1>
+              <p> Criamos projetos arquitetônicos que unem criatividade e precisão técnica. Cada traço reflete uma visão única, garantindo espaços harmônicos, eficientes e atemporais.</p>
+            </div>  -->
+          </div>
+        </div>
+        <div class="grid5">
+          <div class="imgColum">
+            <!-- <div class="txt">
+              <h1>Do Conceito à Execução</h1>
+              <p> Criamos projetos arquitetônicos que unem criatividade e precisão técnica. Cada traço reflete uma visão única, garantindo espaços harmônicos, eficientes e atemporais.</p>
+            </div>  -->
+          </div>
+        </div>
+        <div class="grid6">
+          <div class="imgColum">
+            <!-- <div class="txt">
+              <h1>Inovação em cada detalhe</h1>
+              <p>Arquitetura corporativa e residencial planejada para aliar estética, funcionalidade e conforto. Transformamos espaços para potencializar a experiência de quem vive e trabalha neles.</p>
+            </div>  -->
+          </div>
+        </div>      
       </div>
     </div>
-    <div class="sobre-img">
-      <img id="principalft" src="images/thai/thai.jpg"  class="efeito-img"/>
-    </div>
-  </div>
-  <div id="projetos" class="projetos">
-    <h1>Projetos</h1>
-    <div class="carrosel" id="carrosel">
-      <p-carousel
-        [value]="carrosel"
-        [numVisible]="3"
-        [numScroll]="3"
-        [showNavigators]="true"
-        [circular]="true"
-        [autoplayInterval]="3000"
-        [responsiveOptions]="opcoesResponsividade"
-        [orientation]="orientation"
-      >
-        <ng-template pTemplate="item" let-carrosel>
-          <div class="product-item" >
-            <div class="product-item-content">
-              <div class="title-carrosel">
-                <h4>{{ carrosel.nome }}</h4>
-              </div>
-            </div>
-          </div>
-          <img [src]="carrosel.image" [alt]="'image'" (click)="openCardInfo(carrosel.id)" />
-        </ng-template>
-      </p-carousel>
-    </div>
   </div>
 
-  <div id="contato" class="contato">
-    <div class="informacao">
-      <h1 id="title">Venha fazer seu projeto</h1>
-        <div class="box box1">
-          <div class="passos">
-          <div class="ordem">
-            <h1 id="numero">1</h1>
-            <h1>CRIAÇÃO</h1>
-          </div>
-          </div>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit quas eius quos laboriosam beatae explicabo eum rem. Accusamus tempore sapiente dolore hic est ipsam incidunt ullam! Sit distinctio illo perferendis.</p>
+  <div class="projetos"  id="projetosScroll">
+    <header>
+      <h1>Meus projetos</h1>
+    </header>
+    <body>
+      <div class="card one">
+        <div class="boxImg" loading="lazy"></div>
+        <div class="boxTxt">
+          <h1>Casa Brisa, 2021</h1>
+          <p>A fluidez entre o concreto e a ventilação cruzada define o equilíbrio entre o urbano e o natural.</p>
         </div>
-        <div class="box box2">
-          <div class="passos">
-            <div class="ordem">
-              <h1 id="numero">2</h1>
-              <h1>PROJETOS</h1>
-            </div>
+      </div>
+      
+      <div class="card two">
+        <div class="boxImg" loading="lazy"></div>
+        <div class="boxTxt">
+          <h1>Refúgio Aurora, 2023</h1>
+          <p>Volumes simples e luz abundante criam um santuário moderno em meio à mata atlântica.</p>
+        </div>
+      </div>
+      
+      <div class="card three">
+        <div class="boxImg" loading="lazy"></div>
+        <div class="boxTxt">
+          <h1>Morada Horizonte, 2020</h1>
+          <p>Linhas retas e amplas aberturas horizontais integram a paisagem ao cotidiano da casa.</p>
+        </div>
+      </div>
+      
+      <div class="card four">
+        <div class="boxImg"></div>
+        <div class="boxTxt">
+          <h1>Casa Pedra Clara, 2022</h1>
+          <p>O contraste entre pedra natural e vidro reflete a fusão entre rusticidade e sofisticação.</p>
+        </div>
+      </div>
+      
+      <div class="card five">
+        <div class="boxImg"></div>
+        <div class="boxTxt">
+          <h1>Estúdio Átomo, 2021</h1>
+          <p>Um microespaço inteligente e minimalista pensado para viver, criar e contemplar.</p>
+        </div>
+      </div>
+      
+      <div class="card six">
+        <div class="boxImg"></div>
+        <div class="boxTxt">
+          <h1>Casa Mirante Azul, 2023</h1>
+          <p>Implantada no alto de uma encosta, a residência oferece vistas panorâmicas do oceano, com estrutura leve e transparente.</p>
+        </div>
+      </div>
+      
+      <div class="card seven">
+        <div class="boxImg"></div>
+        <div class="boxTxt">
+          <h1>Vila Nômade, 2024</h1>
+          <p>Módulos independentes e móveis, com design sustentável, pensados para habitar com liberdade.</p>
+        </div>
+      </div>
+      
+      <div class="card eight">
+        <div class="boxImg"></div>
+        <div class="boxTxt">
+          <h1>Pavilhão Vereda, 2022</h1>
+          <p>Inspirado nas veredas do cerrado, o projeto aposta em brises e estruturas lineares que conduzem luz e sombra.</p>
+        </div>
+      </div>
+      
+    </body>
+  </div>
+
+  <div class="banner" id="contatoScroll">
+    <header>
+      <h1 #animatedText>Projetos autorais para vidas únicas. Que tal começarmos o seu?</h1>
+    </header>
+  </div>
+
+  <div class="contato" #contatoRef>
+    <div class="background-blur">
+      
+    </div>
+      <div class="box">
+        <div class="box-img imgThai">
+          <div class="space">
+            <svg viewBox="0 0 170 170" xmlns="http://www.w3.org/2000/svg" class="svg-bed" width="100%" height="100%">
+              <defs>
+                <clipPath id="clip-shape">
+                  <path fill="#E8DAFF" d="M45.7,-73C56.6,-64.1,61.1,-47,63.2,-31.9C65.4,-16.8,65.3,-3.7,62.5,8.3C59.7,20.4,54.3,31.4,47.3,42.8C40.2,54.2,31.6,66.1,21.5,65.5C11.5,64.8,0.1,51.6,-12.2,46C-24.5,40.4,-37.8,42.3,-48.2,37.7C-58.6,33,-66.1,21.8,-65.3,10.9C-64.5,0,-55.4,-10.5,-47,-18.3C-38.5,-26.1,-30.8,-31,-23.1,-41.4C-15.4,-51.7,-7.7,-67.6,4.8,-75.1C17.4,-82.6,34.8,-81.9,45.7,-73Z" transform="translate(50 50)" />
+                </clipPath>
+              </defs>
+              <image href="images/background/thai.jpg"
+                    x="-14" y="-20"
+                    width="230" height="220"
+                    preserveAspectRatio="xMidYMid"
+                    clip-path="url(#clip-shape)" />
+            </svg>
           </div>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit quas eius quos laboriosam beatae explicabo eum rem. Accusamus tempore sapiente dolore hic est ipsam incidunt ullam! Sit distinctio illo perferendis.</p>
         </div>
-        <div class="box box3">
-          <div class="passos">
-            <div class="ordem">
-              <h1 id="numero">3</h1>
-              <h1>OBRA</h1>
-            </div>
-            </div>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit quas eius quos laboriosam beatae explicabo eum rem. Accusamus tempore sapiente dolore hic est ipsam incidunt ullam! Sit distinctio illo perferendis.</p>
-        </div>
+      <div class="boxTXT">
+        <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+          <header>
+            <h1>Entre em contato:</h1>
+          </header>
+          <div>
+            <article>
+              <label for="nome">Nome Completo*:</label>
+              <input type="text" id="nome" formControlName="nome" placeholder="Ex: João da Silva">
+            </article>
+            
+            <article>
+              <label for="telefone">Telefone*:</label>
+                <p-inputMask 
+                formControlName="numero" 
+                mask="(99) 99999-9999" 
+                placeholder="(xx) xxxxx-xxxx">
+              </p-inputMask>
+            </article>
+            
+            <article>
+              <label for="email">Email*:</label>
+              <input type="email" id="email" formControlName="email"  placeholder="Ex: joao@gmail.com">
+            </article>
+          
+          </div>
+          <footer>
+            <button type="submit">Enviar</button>
+          </footer>
+        </form>
+      </div>
     </div>
 
-    <div id="fzrContato" class="fzrContato" >
-      <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
-        <div class="menu" >
-          <h4>Quer um projeto da Thailine?</h4>
-          <article>
-            <label for="">Nome:</label>
-            <input type="text" placeholder="Nome Completo" formControlName="nome" pInputText /> 
-          </article>
-          <article>
-            <label for="">Email:</label>
-            <input type="email" placeholder="Email pessoal"formControlName="email" pInputText /> 
-          </article>
-          <article>
-            <label for="">Número/Whatsapp:</label>
-            <p-inputMask mask="(99) 999999999" placeholder="Seu Telefone/Whatsapp" formControlName="numero"/> 
-          </article>
-          <article>
-            <label for="">Cidade:</label>
-            <input type="text" placeholder="Informe a cidade/estado"formControlName="cidade" pInputText /> 
-          </article>
-          <article>
-            <label for="">Descrição:</label>
-            <textarea id="descricao"formControlName="descricao"placeholder="Breve descrição do projeto" rows="12"cols="30" pInputTextarea></textarea>          
-          </article>
-          <div class="botao">
-            <p-button label="Enviar" type="submit" [disabled]="formulario.invalid" />
+  </div>
+
+  <div class="footer">
+    <section class="thereed-section">
+      <div class="footer">
+        <div class="socials">
+          <div class="icons">
+            <i class="fi fi-brands-twitter-alt"></i>
+            <i class="fi fi-brands-instagram"></i>
+            <i class="fi fi-brands-tik-tok"></i>
+            <i class="fi fi-brands-linkedin"></i>
           </div>
         </div>
-      </form>
-    </div>
+        <article class="cases footerCard">
+          <h1>Serviços</h1>
+          <div class="texts">
+              <p>Projetos Residenciais</p>
+              <p>Projetos Comerciais</p>
+              <p>Design de Interiores</p>
+              <p>Consultoria de Ambientes</p>
+              <p>Reformas e Retrofit</p>
+              <p>Paisagismo</p>
+              <p>Gestão de Obras</p>
+          </div>
+        </article>
+        
+        <article class="explore footerCard">
+          <h1>Sobre</h1>
+          <div class="texts">
+              <p>
+                <a href="#sobreScroll">
+                  Quem sou
+                </a>
+              </p>
+              <p>
+                <a href="#projetosScroll">
+                  Portfólio
+                </a>
+              </p>
+              <p>Parcerias</p>
+              <p>Processo Criativo</p>
+              <p>Contato</p>
+          </div>
+        </article>
+        
+        <article class="resources footerCard">
+          <h1>Conteúdos</h1>
+          <div class="texts">
+              <p>Dicas de Decoração</p>
+              <p>Tendências Arquitetônicas</p>
+              <p>Antes e Depois</p>
+              <p>Materiais e Acabamentos</p>
+              <p>Inspirações</p>
+          </div>
+        </article> 
+      </div>
+    </section>
   </div>
 </div>
 

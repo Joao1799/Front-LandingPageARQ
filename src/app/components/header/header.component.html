@@ -1,11 +1,11 @@
 <div class="main-container">
-	<div class="body">
+	<div class="bodyHeader">
 		<nav>
-			<a href="#sobre"><img src="/images/thai/logoOFC.png" alt="Logo" class="navbar-logo"></a>
+			<a href="#sobre"><img src="/images/thai/logoOFC.png" alt="Logo" class="navbar-logo" (click)="scrollTo('home')"></a>
 			<ul>
-				<li><a id="sobretexto" href="#sobre">Sobre mim</a></li>
-				<li><a href="#projetos">Projetos</a></li>
-				<li><a href="#contato">Contato</a></li>
+				<li><a id="sobretexto" (click)="scrollTo('sobreScroll')">Sobre mim</a></li>
+				<li><a (click)="scrollTo('projetosScroll')">Projetos</a></li>
+				<li><a (click)="scrollTo('contatoScroll')">Contato</a></li>
 			</ul>
 		</nav>	
-	</div>
+</div>

@@ -1,8 +1,8 @@
-import { Component, HostListener } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, HostListener, ElementRef, OnInit, AfterViewInit, ViewChild  } from '@angular/core';
 import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { FileUploadModule } from 'primeng/fileupload'; 
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ToastModule } from 'primeng/toast';
@@ -11,18 +11,19 @@ import { homeService } from './home.service';
 import { InputMaskModule } from 'primeng/inputmask';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { CardsInfoComponent } from '../modal/cards-info/cards-info.component';
+import 'aos/dist/aos.css';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
+import { ScrollService } from '../scroll.service';
 
-interface CarroselItem {
-  image: string;
-  nome: string;
-  id: number;
-}
 
+gsap.registerPlugin(ScrollTrigger);
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CarouselModule,CommonModule, ButtonModule,ReactiveFormsModule,InputTextModule,InputTextareaModule,ToastModule,InputMaskModule,DynamicDialogModule],
+  imports: [FileUploadModule,CarouselModule, ButtonModule,ReactiveFormsModule,InputTextModule,InputTextareaModule,ToastModule,InputMaskModule,DynamicDialogModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   providers: [MessageService, homeService,DialogService]
@@ -38,206 +39,318 @@ export class HomeComponent {
   rfCard: DynamicDialogRef | undefined;
   widthCard: any;
 
-  constructor( private homeService: homeService, private fb: FormBuilder,private messageService: MessageService,public dialogService: DialogService) { }
+  nome!: string;
+  telefone!: string;
+  email!: string;
+  arquivo: File | null = null;
+  uploadResponse: string = '';
+
+  constructor(
+    private route: ActivatedRoute, 
+    private http: HttpClient,
+    private homeService: homeService, 
+    private fb: FormBuilder,
+    private messageService: MessageService,
+    public dialogService: DialogService,
+    private scrollService: ScrollService,
+    private el: ElementRef) { }
 
   ngOnInit() {
+    this.scrollService.scrollToSection$.subscribe((sectionId: string) => {
+      const element = this.el.nativeElement.querySelector('#' + sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
     this.getForms();
-    this.txtPadrao();
   }
 
-  getForms(){
-    this.formulario =new FormGroup({
-      nome: new FormControl('', [Validators.required]), 
-      email: new FormControl('', [Validators.email]), 
-      numero: new FormControl('', [Validators.required, this.formatadorNumero()]), 
-      cidade: new FormControl('', [Validators.required]), 
-      descricao: new FormControl('',[Validators.required] ), 
-    }) 
-  }
-  formatadorNumero(): ValidatorFn {
-    const formataNumero = /^\(\d{2}\)\s\d{9}$/;
-    return (control: AbstractControl): ValidationErrors | null => {
-      const valid = formataNumero.test(control.value);
-      return valid ? null : { numeroInvalido: true };
-    };
+  getForms() {
+    this.formulario = new FormGroup({
+      nome: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.email]),
+      numero: new FormControl('', [Validators.required,]),
+    });
   }
 
-  openCardInfo(id: any){
-    const item = this.carrosel.find((card: CarroselItem) => card.id === id);
-    
-    if (window.innerWidth <= 932) {
-      this.widthCard = '70%';
-    } else {
-      this.widthCard = '30%';
-    }
-   
-    if(item){
-      this.rfCard = this.dialogService.open(CardsInfoComponent, {
-        header:"Informações do Projeto",
-        width: this.widthCard,
-        modal:true,
-        closable: false,
-        contentStyle: { "height": "70vh", "overflow": "auto" },
-        baseZIndex: 10000,
-        data:item,
-      });
-    }
-  }
-
-  txtPadrao(){
-    this.opcoesResponsividade=[
-      {
-        breakpoint: '940px',
-        numVisible: 2,
-        numScroll: 1,
-        orientation: 'vertical'
-      },
-      {
-        breakpoint: '1250px',
-        numVisible: 1,
-        numScroll: 1,
-        orientation: 'horizontal',
-      },
-      {
-        breakpoint: '1920px',
-        numVisible: 3,
-        numScroll: 3,
-        orientation: 'horizontal',
-      },
-    ]
-    this.attPosicao();
-
-    this.carrosel = [
-      {
-        image: 'images/123casa/123123.png',
-        nome: 'Projeto 3D Ambiente integrado',
-        id: 1,
-        descricao: 'Este projeto 3D de ambiente integrado combina sala de estar e cozinha em um espaço moderno e aberto. Foco no design contemporâneo, utilizando conceitos de iluminação e ergonomia.',
-        tecnologias: ['SketchUp', 'V-Ray', 'AutoCAD'],
-      },
-      {
-        image: 'images/123casa/123.png',
-        nome: 'Projeto 3D de Cozinha',
-        id: 2,
-        descricao: 'Um projeto de cozinha detalhado em 3D, projetado com foco em funcionalidade e estilo minimalista. Ideal para quem busca otimização de espaço e soluções modernas.',
-        tecnologias: ['AutoCAD', '3ds Max', 'Lumion'],
-      },
-      {
-        image: 'images/123casa/312.png',
-        nome: 'Projeto 3D de Banheiro',
-        id: 3,
-        descricao: 'Projeto de banheiro em 3D, com foco em materiais como mármore e porcelanato, proporcionando um ambiente sofisticado e funcional. Design contemporâneo e clean.',
-        tecnologias: ['Revit', 'Enscape', 'SketchUp'],
-      },
-      {
-        image: 'images/parque2/verde2.png',
-        nome: 'Projeto 3D de Parque',
-        id: 4,
-        descricao: 'Desenvolvimento de parque em 3D com áreas verdes amplas, trilhas para caminhada e zonas de recreação. O projeto valoriza o paisagismo e o uso sustentável de recursos.',
-        tecnologias: ['Lumion', 'AutoCAD', 'Revit'],
-      },
-      {
-        image: 'images/parque2/verde1.png',
-        nome: 'Projeto 3D de Parque',
-        id: 5,
-        descricao: 'Projeto de parque com foco em integração com a natureza, utilizando técnicas de paisagismo avançadas para criar um espaço convidativo e sustentável.',
-        tecnologias: ['SketchUp', 'AutoCAD', 'V-Ray'],
-      },
-      {
-        image: 'images/parque2/verde3.png',
-        nome: 'Projeto 3D de Parque',
-        id: 6,
-        descricao: 'Este parque foi projetado em 3D para oferecer áreas de lazer e convivência, priorizando sustentabilidade e acessibilidade em um ambiente natural.',
-        tecnologias: ['3ds Max', 'Revit', 'Lumion'],
-      },
-      {
-        image: 'images/casa/irmao1.png',
-        nome: 'Projeto 3D de casa',
-        id: 7,
-        descricao: 'Projeto de uma casa unifamiliar em 3D com estilo arquitetônico moderno. Foco em maximizar iluminação natural e ventilação cruzada, garantindo eficiência energética.',
-        tecnologias: ['Revit', 'AutoCAD', 'Enscape'],
-      },
-      {
-        image: 'images/casa/irmao2.png',
-        nome: 'Projeto 3D de casa',
-        id: 8,
-        descricao: 'Modelo 3D de uma residência com design contemporâneo e linhas limpas. O projeto foca no uso de materiais sustentáveis e aproveitamento inteligente do espaço.',
-        tecnologias: ['SketchUp', 'V-Ray', 'AutoCAD'],
-      },
-      {
-        image: 'images/casa/irmao3.png',
-        nome: 'Projeto 3D de casa',
-        id: 9,
-        descricao: 'Residência projetada em 3D com elementos arquitetônicos sofisticados, como grandes janelas e ambientes integrados, visando um estilo de vida moderno e funcional.',
-        tecnologias: ['Lumion', 'Revit', 'AutoCAD'],
-      },
-    ];
-
-    this.textoPadrao = `
-    Olá! Sou Thailine Moura, estudante de Arquitetura e Urbanismo no 7º período pela Universidade do Distrito Federal (UDF). Apaixonada pelo impacto transformador da arquitetura, procuro sempre alinhar técnica e criatividade para oferecer soluções práticas e inovadoras.
-    Minha jornada acadêmica e profissional é marcada pela atenção aos detalhes e pela constante busca por aprimoramento. Tenho domínio de ferramentas essenciais para o desenvolvimento de projetos arquitetônicos, como AutoCAD, SketchUp, Revit, e Photoshop, além de experiência com renderizações realistas em V-Ray e Lumion.<br>
-    <br>Além do ambiente acadêmico, tive a oportunidade de estagiar em órgãos públicos e em escritórios de arquitetura, onde participei ativamente da elaboração de projetos e no atendimento a clientes. Também colaborei em projetos como o Parque Recreativo do Setor O, contribuindo para o desenvolvimento de espaços urbanos que promovem bem-estar e integração social.
-    Sou motivada por desafios e busco constantemente aprender e evoluir, seja no campo da arquitetura, seja em minhas interações pessoais e profissionais. Acredito que a arquitetura pode melhorar a vida das pessoas, e é essa paixão que guia cada um dos meus projetos.
-  `;  
-  }
-
-  attPosicao(){
-    if (window.innerWidth <= 932) {
-      this.orientation = 'vertical';
-    } else {
-      this.orientation = 'horizontal';
-    }
-  }
 
   onSubmit() {
-    this.messageService.add({ severity: 'info', summary: 'info', detail: 'Enviando..' });
     if (this.formulario.valid) {
-      this.homeService.enviarParaWhatsApp(this.formulario.value).subscribe({
+      const formData = new FormData();
+      formData.append('nome', this.formulario.get('nome')?.value);
+      formData.append('email', this.formulario.get('email')?.value);
+      formData.append('numero', this.formulario.get('numero')?.value);
+
+      this.messageService.add({ severity: 'info', summary: 'info', detail: 'Enviando..' });
+
+      this.homeService.enviarParaWhatsApp(formData).subscribe({
         next: (response) => {
-          console.log('Dados enviados para o WhatsApp:', response);
           this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Seu projeto foi enviado!' });
-          window.location.reload()
+          window.location.reload();
         },
         error: (error) => {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Erro ao enviar projeto' });
-          console.error('Erro ao enviar dados para o WhatsApp:', error);
+          this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Erro ao enviar projeto' });
+          console.error('Erro:', error);
         }
       });
-    }
-  }
-
-  CSSfunc(scrollTop: number): void {
-    const imgPrincipal = document.querySelector('.efeito-img') as HTMLElement;
-    const txtPrincipal = document.querySelector('.efeito-txt') as HTMLElement;
-    const ripado = document.querySelector('.ripado') as HTMLElement;
-    let rotacao = Math.max(-scrollTop / 20, -360);
-    let opacidade = Math.max(1 - (scrollTop / 600), 0); 
-    let slide = Math.min(scrollTop / 3, 500);
-
-    imgPrincipal.style.transform = `rotate(${rotacao}deg)`;
-    imgPrincipal.style.opacity = `${opacidade}`;
-
-    ripado.style.opacity = `${opacidade}`;
-
-    txtPrincipal.style.transform = `translateX(-${slide}px)`;
-    txtPrincipal.style.opacity = `${opacidade}`; 
-
-
-  }
-
-  @HostListener('window:scroll', [])
-  scrollDaTela(): void {
-    const scrollTop = document.documentElement.scrollTop;
-    if (scrollTop > this.lastScrollTop) {
-      this.CSSfunc(scrollTop);
     } else {
-      this.CSSfunc(scrollTop);
+      this.messageService.add({ severity: 'warn', summary: 'Atenção', detail: 'Preencha todos os campos obrigatórios.' });
     }
-    this.lastScrollTop = scrollTop;
   }
 
-  @HostListener('window:resize', ['$event'])
-  onResize(event: any) {
-    this.attPosicao();
-  }
+  @ViewChild('bodyhome') bodyhome!: ElementRef;
+  @ViewChild('headerHome') headerHome!: ElementRef;
+  @ViewChild('servicosRef') servicosRef!: ElementRef;
+  @ViewChild('animatedText', { static: true }) animatedText!: ElementRef;
+  @ViewChild('contatoRef', { static: true }) contatoRef!: ElementRef;
+
+  ngAfterViewInit(): void {
+    const grids = gsap.utils.toArray('.grid, .grid1, .grid2, .grid3, .grid4, .grid5, .grid6');
+    const h2 = this.headerHome.nativeElement.querySelector('h2');
+    const h1 = this.headerHome.nativeElement.querySelector('h1');
+    const section = this.servicosRef.nativeElement;
+    const textElement = this.animatedText.nativeElement;
+    const words = textElement.innerText.split(' ');
+    textElement.innerHTML = words.map((word: any) =>  `<span class="word">${word}</span>`).join(' ');
+    const spans = textElement.querySelectorAll('.word');
+    const imgThai = this.contatoRef.nativeElement.querySelector('.space');
+    const boxTXT = this.contatoRef.nativeElement.querySelector('.boxTXT');
+
+    gsap.set([this.bodyhome.nativeElement, h2, h1], { opacity: 0, y: 0 });
+    gsap.registerPlugin(ScrollTrigger);
+
+
+    this.route.fragment.subscribe(fragment => {
+      if (fragment) {
+        const element = document.getElementById(fragment);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    });
+
+    gsap.timeline().to(this.bodyhome.nativeElement, {
+        opacity: 1,
+        scale: 1,
+        duration: 1.2,
+        ease: 'power2.out'
+      })
+      .to(h2, {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: 'power2.out'
+      }, "-=0.4")
+      .to(h1, {
+        opacity: 1,
+        y: 0,
+        scale: 1.02,
+        duration: 1.2,
+        ease: 'back.out(1.4)'
+      }, "-=0.8");
+
+      gsap.fromTo(".body",
+        {
+          opacity: 1,
+          filter: "blur(0px)",
+          ease: "power2.inOut"
+        },
+        {
+          scrollTrigger: {
+            trigger: ".box-text",
+            start: "top 80%",
+            end: "top 20%",
+            scrub: 1, // anima sincronizada com scroll
+            // markers: true, // ative para debug
+          },
+          opacity: 0.3,
+          filter: "blur(5px)"
+        }
+      );
+
+      gsap.fromTo(".box-text",
+        {
+          opacity: 0.2,
+          filter: "blur(7px)"
+        },
+        {
+          scrollTrigger: {
+            trigger: ".box-text",
+            start: "top 85%",
+            end: "top 20%",
+            scrub: 1, // anima sincronizada com scroll
+            // markers: true, // ative para debug
+          },
+          // x: 0,
+          opacity: 1,
+          filter: "blur(0px)",
+          ease: "power2.inOut"
+        }
+      );
+      
+      gsap.fromTo(".box-img",
+        {
+          // x: 600,
+          opacity: 0.2,
+          filter: "blur(7px)"
+        },
+        {
+          scrollTrigger: {
+            trigger: ".box-text",
+            start: "top 85%",
+            end: "top 20%",
+            scrub: 1,
+          },
+          // x: 0,
+          opacity: 1,
+          filter: "blur(0px)",
+          ease: "power2.inOut"
+        }
+      );
+
+      gsap.fromTo(".sobreBox",
+        {
+          opacity: 1,
+          filter: "blur(0px)",
+          ease: "power2.inOut"
+        },
+        {
+          scrollTrigger: {
+            trigger: ".servicos",
+            start: "top 80%",
+            end: "top 20%",
+            scrub: 1, // anima sincronizada com scroll
+            //markers: true, // ative para debug
+
+          },
+          opacity: 0.3,
+          filter: "blur(5px)"
+        }
+      );
+
+      // gsap.from('.titulo-servicos', {
+      //   scrollTrigger: {
+      //     trigger: section,
+      //     start: 'top center',
+      //     end: 'bottom center',
+      //     scrub: 1,
+      //   },
+      //   opacity: 0,
+      //   y: 100,
+      //   duration: 1,
+      //   ease: 'power2.out',
+      // });
+
+      gsap.from('.titulo-servicos span', {
+        scrollTrigger: {
+          trigger: '.servicos',
+          start: 'top 80%',
+          end: 'top 10%',
+          scrub: 1,
+        },
+        opacity: 0,
+        y: 50,
+        stagger: 0.1,
+        ease: 'power3.out',
+      });
+
+      gsap.from(grids, {
+        opacity: 0,
+        y: 100,
+        duration: 1,
+        ease: 'power3.out',
+        stagger: 0.2, //Adiciona um atraso de 0.2 segundos entre cada elemento animado.  efeito de "entrada em sequência"
+        scrollTrigger: {
+          trigger: '.servicos',
+          start: 'top 80%',
+          end: 'top 10%',
+          scrub: 1,
+          // markers: true
+        }
+      });
+
+      gsap.from('.banner', {
+        scrollTrigger: {
+          trigger: section,
+          start: 'top center',
+          end: 'bottom center',
+          scrub: 1,
+        },
+        opacity: 0,
+        y: 100,
+        duration: 1,
+        ease: 'power2.out',
+      });
+
+      gsap.fromTo(spans,
+        { opacity: 0,
+          filter: 'blur(8px)',
+          y: 20 
+        },
+        {
+          y: 0,
+          duration: 0.6,
+          stagger: 0.15,
+          scrollTrigger: {
+            trigger: ".banner",
+            start: 'top 90%',
+            end: 'top 30%',
+            toggleActions: 'play none none none',
+            once: true,
+            scrub: true,
+            
+          },
+          opacity: 1,
+          filter: 'blur(0px)',
+        }
+      );
+
+      gsap.fromTo(imgThai,
+        { 
+          opacity: 0,
+          filter: 'blur(8px)',
+          x: -400 
+        },
+        {
+          duration: 1.5,
+          stagger: 0.15,
+          scrollTrigger: {
+            trigger: imgThai,
+            start: 'top 50%',
+            end: 'top 15%',
+            toggleActions: 'play none none none',
+            once: true, 
+            // scrub: true,
+          },
+          opacity: 1,
+          x: 0,
+          filter: 'blur(0px)',
+        }
+      );
+
+      gsap.fromTo(boxTXT,
+        { 
+          opacity: 0,
+          filter: 'blur(8px)',
+          x: 400 
+        },
+        {
+          duration: 1.5,
+          stagger: 0.15,
+          scrollTrigger: {
+            trigger: boxTXT,
+            start: 'top 50%',
+            end: 'top 15%',
+            toggleActions: 'play none none none',
+            once: true, 
+            // scrub: true,
+            // markers:true
+          },
+          opacity: 1,
+          x: 0,
+          filter: 'blur(0px)',
+        }
+      );
+
+    }
 }
